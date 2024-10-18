@@ -1,0 +1,321 @@
+{
+  "canil": {
+    "setores": [
+      {
+        "setor": "A",
+        "canis": [
+          {
+            "numeroCanil": 1,
+            "animais": [
+              {
+                "nome": "Max",
+                "tipo": "cachorro",
+                "idade": 3,
+                "raca": "Labrador",
+                "observacao": "Amigável e ativo"
+              },
+              {
+                "nome": "Bella",
+                "tipo": "gato",
+                "idade": 2,
+                "raca": "Siamês",
+                "observacao": "Calma, gosta de lugares altos"
+              }
+            ]
+          },
+          {
+            "numeroCanil": 2,
+            "animais": [
+              {
+                "nome": "Rex",
+                "tipo": "cachorro",
+                "idade": 4,
+                "raca": "Pastor Alemão",
+                "observacao": "Treinado para guarda"
+              },
+              {
+                "nome": "Luna",
+                "tipo": "gato",
+                "idade": 5,
+                "raca": "Persa",
+                "observacao": "Adora brincar com bolas de lã"
+              }
+            ]
+          },
+          {
+            "numeroCanil": 3,
+            "animais": [
+              {
+                "nome": "Spike",
+                "tipo": "cachorro",
+                "idade": 2,
+                "raca": "Bulldog Francês",
+                "observacao": "Um pouco teimoso, mas carinhoso"
+              },
+              {
+                "nome": "Mimi",
+                "tipo": "gato",
+                "idade": 1,
+                "raca": "Angorá",
+                "observacao": "Adora caçar brinquedos"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "setor": "B",
+        "canis": [
+          {
+            "numeroCanil": 1,
+            "animais": [
+              {
+                "nome": "Charlie",
+                "tipo": "cachorro",
+                "idade": 2,
+                "raca": "Beagle",
+                "observacao": "Curioso e cheio de energia"
+              },
+              {
+                "nome": "Kitty",
+                "tipo": "gato",
+                "idade": 1,
+                "raca": "Maine Coon",
+                "observacao": "Muito peluda, dócil"
+              }
+            ]
+          },
+          {
+            "numeroCanil": 2,
+            "animais": [
+              {
+                "nome": "Simba",
+                "tipo": "gato",
+                "idade": 3,
+                "raca": "Bengal",
+                "observacao": "Explorador nato, muito ativo"
+              },
+              {
+                "nome": "Oscar",
+                "tipo": "cachorro",
+                "idade": 6,
+                "raca": "Golden Retriever",
+                "observacao": "Excelente com crianças"
+              }
+            ]
+          },
+          {
+            "numeroCanil": 3,
+            "animais": [
+              {
+                "nome": "Toby",
+                "tipo": "cachorro",
+                "idade": 4,
+                "raca": "Poodle",
+                "observacao": "Muito inteligente e carinhoso"
+              },
+              {
+                "nome": "Fiona",
+                "tipo": "gato",
+                "idade": 5,
+                "raca": "Ragdoll",
+                "observacao": "Adora ficar no colo"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "setor": "C",
+        "canis": [
+          {
+            "numeroCanil": 1,
+            "animais": [
+              {
+                "nome": "Duke",
+                "tipo": "cachorro",
+                "idade": 5,
+                "raca": "Husky Siberiano",
+                "observacao": "Cheio de energia e vocal"
+              },
+              {
+                "nome": "Milo",
+                "tipo": "gato",
+                "idade": 2,
+                "raca": "Sphynx",
+                "observacao": "Extremamente curioso"
+              }
+            ]
+          },
+          {
+            "numeroCanil": 2,
+            "animais": [
+              {
+                "nome": "Rocky",
+                "tipo": "cachorro",
+                "idade": 3,
+                "raca": "Boxer",
+                "observacao": "Muito brincalhão"
+              },
+              {
+                "nome": "Leo",
+                "tipo": "gato",
+                "idade": 4,
+                "raca": "Scottish Fold",
+                "observacao": "Calmo e gosta de observar"
+              }
+            ]
+          },
+          {
+            "numeroCanil": 3,
+            "animais": [
+              {
+                "nome": "Bruno",
+                "tipo": "cachorro",
+                "idade": 6,
+                "raca": "Rottweiler",
+                "observacao": "Protetor, mas amigável"
+              },
+              {
+                "nome": "Nina",
+                "tipo": "gato",
+                "idade": 3,
+                "raca": "Abissínio",
+                "observacao": "Gosta de escalar móveis"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "setor": "D",
+        "canis": [
+          {
+            "numeroCanil": 1,
+            "animais": [
+              {
+                "nome": "Buddy",
+                "tipo": "cachorro",
+                "idade": 2,
+                "raca": "Shih Tzu",
+                "observacao": "Amigável e tranquilo"
+              },
+              {
+                "nome": "Shadow",
+                "tipo": "gato",
+                "idade": 4,
+                "raca": "Bombay",
+                "observacao": "Adora lugares escuros"
+              }
+            ]
+          },
+          {
+            "numeroCanil": 2,
+            "animais": [
+              {
+                "nome": "Zeus",
+                "tipo": "cachorro",
+                "idade": 5,
+                "raca": "Doberman",
+                "observacao": "Muito ágil e leal"
+              },
+              {
+                "nome": "Oliver",
+                "tipo": "gato",
+                "idade": 3,
+                "raca": "Birmanês",
+                "observacao": "Muito sociável"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "setor": "E",
+        "canis": [
+          {
+            "numeroCanil": 1,
+            "animais": [
+              {
+                "nome": "Bailey",
+                "tipo": "cachorro",
+                "idade": 4,
+                "raca": "Border Collie",
+                "observacao": "Extremamente inteligente"
+              },
+              {
+                "nome": "Cleo",
+                "tipo": "gato",
+                "idade": 5,
+                "raca": "Chartreux",
+                "observacao": "Quieto e carinhoso"
+              }
+            ]
+          },
+          {
+            "numeroCanil": 2,
+            "animais": [
+              {
+                "nome": "Loki",
+                "tipo": "cachorro",
+                "idade": 3,
+                "raca": "Bulldog Inglês",
+                "observacao": "Calmo e carismático"
+              },
+              {
+                "nome": "Salem",
+                "tipo": "gato",
+                "idade": 6,
+                "raca": "Bombay",
+                "observacao": "Gosta de brincar à noite"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "setor": "F",
+        "canis": [
+          {
+            "numeroCanil": 1,
+            "animais": [
+              {
+                "nome": "Cooper",
+                "tipo": "cachorro",
+                "idade": 2,
+                "raca": "Dálmata",
+                "observacao": "Muito brincalhão"
+              },
+              {
+                "nome": "Misty",
+                "tipo": "gato",
+                "idade": 1,
+                "raca": "Himalaio",
+                "observacao": "Muito peludo e dócil"
+              }
+            ]
+          },
+          {
+            "numeroCanil": 2,
+            "animais": [
+              {
+                "nome": "Harley",
+                "tipo": "cachorro",
+                "idade": 3,
+                "raca": "Doberman",
+                "observacao": "Muito leal e protetor"
+              },
+              {
+                "nome": "Lola",
+                "tipo": "gato",
+                "idade": 4,
+                "raca": "Siberiano",
+                "observacao": "Adora brincar com bolinhas"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
