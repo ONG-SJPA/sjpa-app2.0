@@ -1,6 +1,6 @@
-import { CanilDTO } from "./CanilDTO";
+import { BaiaDTO } from "./CanilDTO";
 
 export interface SectorDTO {
   setor: string;
-  canis: CanilDTO[];
+  baias: BaiaDTO[];
 }

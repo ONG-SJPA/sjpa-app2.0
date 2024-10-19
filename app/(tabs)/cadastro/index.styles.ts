@@ -8,6 +8,7 @@ export const StyledMainContainer = styled.View`
   gap: 10px;
   flex-wrap: wrap;
   flex-direction: row;
+  overflow: auto;
 `;
 
 export const StyledSectorButton = styled(Button)<Props>`

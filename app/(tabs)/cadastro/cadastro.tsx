@@ -7,11 +7,11 @@ import {
   StyledTextButton,
   StyledTitle,
   StyledTitleContainer,
-} from "@/styles/cadastro/index.styles";
+} from "@/app/(tabs)/cadastro/index.styles";
 import { IconButton } from "react-native-paper";
-import { useCadastroPage } from "@/hooks/cadastro/useCadastroPage";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { Link, useNavigation } from "expo-router";
+import { Link } from "expo-router";
+import { useCadastroPage } from "./hooks/useCadastroPage";
 
 export default function Cadastro() {
   const { sectors } = useCadastroPage();
