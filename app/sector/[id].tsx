@@ -1,16 +1,19 @@
 // app/detail/[id].tsx
 import React from "react";
-import { Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSectorPage } from "./hooks/useSectorPage";
 import {
   StyledTitle,
   StyledTitleContainer,
 } from "../(tabs)/cadastro/index.styles";
-import { IconButton } from "react-native-paper";
+import { Avatar, Card, IconButton } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AnimalTypeEnumLabel } from "@/types/enum/animal/AnimalTypeEnum";
+import {
+  AnimalTypeEnum,
+  AnimalTypeEnumLabel,
+} from "@/types/enum/animal/AnimalTypeEnum";
 
 const SectorPage = () => {
   const params = useLocalSearchParams<{ id: string }>(); // Usando useSearchParams com TypeScript
@@ -35,13 +38,30 @@ const SectorPage = () => {
         />
       </StyledTitleContainer>
       {sector ? (
-        sector.baias.map((x) => (
-          <View>
-            <Text>Baia {x.numeroBaia}</Text>
-            <Text>{AnimalTypeEnumLabel[x.tipo]}</Text>
-            <Text>Quantidade de animais: {x.animais.length}</Text>
-          </View>
-        ))
+        sector.baias.map((x) => {
+          const pathImage =
+            x.tipo === AnimalTypeEnum.Dog
+              ? require("./../../assets/images/dog.jpg")
+              : require("./../../assets/images/cat.jpg");
+          return (
+            <View key={x.numeroBaia}>
+              <Card.Title
+                title={`Baia ${x.numeroBaia}`}
+                subtitle={`Quantidade de animais: ${x.animais.length} ${
+                  AnimalTypeEnumLabel[x.tipo]
+                }(s)`}
+                left={(props) => <Avatar.Image {...props} source={pathImage} />}
+                right={(props) => (
+                  <IconButton
+                    {...props}
+                    icon="dots-vertical"
+                    onPress={() => {}}
+                  />
+                )}
+              />
+            </View>
+          );
+        })
       ) : (
         <View>
           <Text>Setor não encontrado</Text>

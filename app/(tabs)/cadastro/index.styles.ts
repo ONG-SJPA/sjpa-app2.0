@@ -28,6 +28,7 @@ export const StyledTextButton = styled.Text`
 export const StyledTitle = styled.Text`
   font-size: 30px;
   font-weight: bold;
+  margin-left: 10px;
 `;
 
 export const StyledTitleContainer = styled.View`

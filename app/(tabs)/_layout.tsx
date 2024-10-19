@@ -26,18 +26,19 @@ export default function TabLayout() {
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
       }}
+      initialRouteName="cadastro/cadastro"
     >
       <Tabs.Screen
         name="cadastro/cadastro"
         options={{
           title: "Cadastro",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="folder" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="two/two"
+        name="conference/conference"
         options={{
-          title: "Tab Two",
+          title: "Conferência",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />

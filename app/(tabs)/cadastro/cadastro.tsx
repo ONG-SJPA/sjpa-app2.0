@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -8,22 +8,17 @@ import {
   StyledTitle,
   StyledTitleContainer,
 } from "@/app/(tabs)/cadastro/index.styles";
-import { IconButton } from "react-native-paper";
+import { Avatar, Card, IconButton } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { Link } from "expo-router";
 import { useCadastroPage } from "./hooks/useCadastroPage";
+import { View } from "@/components/Themed";
 
 export default function Cadastro() {
   const { sectors } = useCadastroPage();
 
   return (
-    <SafeAreaView
-      style={{
-        height: "100%",
-        width: "100%",
-        padding: 10,
-      }}
-    >
+    <SafeAreaView>
       <StyledTitleContainer>
         <StyledTitle>Setores</StyledTitle>
         <IconButton
@@ -32,17 +27,45 @@ export default function Cadastro() {
           onPress={() => console.log("Pressed")}
         />
       </StyledTitleContainer>
-      <StyledMainContainer>
-        {sectors.map((sector) => {
-          return (
-            <Link href={`/sector/${sector.setor}`} asChild key={sector.setor}>
-              <StyledSectorButton mode="contained">
-                <StyledTextButton>{sector.setor}</StyledTextButton>
-              </StyledSectorButton>
-            </Link>
-          );
-        })}
-      </StyledMainContainer>
+      {sectors.map((sector) => {
+        return (
+          <View key={sector.setor}>
+            <Card.Title
+              style={{
+                backgroundColor: "#34a54c",
+              }}
+              title={
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 20,
+                  }}
+                >{`Setor ${sector.setor}`}</Text>
+              }
+              subtitle={
+                <Text
+                  style={{ color: "white" }}
+                >{`Quantidade de baias: ${sector.baias.length}`}</Text>
+              }
+              left={(props) => <Avatar.Text {...props} label={sector.setor} />}
+              right={(props) => (
+                <Link
+                  href={`/sector/${sector.setor}`}
+                  asChild
+                  key={sector.setor}
+                >
+                  <IconButton
+                    {...props}
+                    icon="dots-vertical"
+                    onPress={() => {}}
+                    style={{ backgroundColor: "#ffffff" }}
+                  />
+                </Link>
+              )}
+            />
+          </View>
+        );
+      })}
     </SafeAreaView>
   );
 }
