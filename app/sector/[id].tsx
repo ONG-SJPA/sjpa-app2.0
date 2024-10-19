@@ -1,12 +1,9 @@
 // app/detail/[id].tsx
 import React from "react";
 import { Image, Text, View } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Link, useLocalSearchParams, useRouter } from "expo-router";
 import { useSectorPage } from "./hooks/useSectorPage";
-import {
-  StyledTitle,
-  StyledTitleContainer,
-} from "../(tabs)/cadastro/index.styles";
+import * as S from "./index.styles";
 import { Avatar, Card, IconButton } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -26,17 +23,16 @@ const SectorPage = () => {
       style={{
         height: "100%",
         width: "100%",
-        padding: 10,
       }}
     >
-      <StyledTitleContainer>
-        <StyledTitle>Baias do setor {id}</StyledTitle>
+      <S.TitleContainer>
+        <S.Title>Baias do setor {id}</S.Title>
         <IconButton
           icon={() => <Icon name="add-box" size={45} color="#000000" />}
           size={30}
           onPress={() => console.log("Pressed")}
         />
-      </StyledTitleContainer>
+      </S.TitleContainer>
       {sector ? (
         sector.baias.map((x) => {
           const pathImage =
@@ -52,11 +48,13 @@ const SectorPage = () => {
                 }(s)`}
                 left={(props) => <Avatar.Image {...props} source={pathImage} />}
                 right={(props) => (
-                  <IconButton
-                    {...props}
-                    icon="dots-vertical"
-                    onPress={() => {}}
-                  />
+                  <Link href={`/baia/${x.numeroBaia}`}>
+                    <IconButton
+                      {...props}
+                      icon="dots-vertical"
+                      onPress={() => {}}
+                    />
+                  </Link>
                 )}
               />
             </View>
