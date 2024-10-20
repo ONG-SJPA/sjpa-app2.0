@@ -1,7 +1,7 @@
 // app/detail/[id].tsx
 import React from "react";
 import { Text, View } from "react-native";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useSectorPage } from "./hooks/useSectorPage";
 import * as S from "@/app/(tabs)/cadastro/index.styles";
 import { router } from "expo-router";
