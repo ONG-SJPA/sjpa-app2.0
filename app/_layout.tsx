@@ -3,15 +3,16 @@ import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
-  useNavigation,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
+import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
+import { RootStackParamList } from "@/types/route/RootStackParamList";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -50,8 +51,12 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
+
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+
+  const navigation = useNavigation<NavigationProps>();
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>

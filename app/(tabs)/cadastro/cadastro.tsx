@@ -25,51 +25,7 @@ export default function Cadastro() {
         <S.ViewList>
           {sectors.map((sector) => {
             return (
-              <S.ViewListSector>
-                <Card.Title
-                  style={{
-                    backgroundColor: "#34a54c",
-                    borderRadius: 10,
-                  }}
-                  title={
-                    <Text
-                      style={{
-                        color: "white",
-                        fontSize: 20,
-                      }}
-                    >{`Setor ${sector.setor}`}</Text>
-                  }
-                  subtitle={
-                    <Text
-                      style={{ color: "white" }}
-                    >{`Quantidade de baias: ${sector.baias.length}`}</Text>
-                  }
-                  left={(props) => (
-                    <Avatar.Text {...props} label={sector.setor} />
-                  )}
-                  right={(props) => (
-                    <Link
-                      href={`/sector/${sector.setor}`}
-                      asChild
-                      key={sector.setor}
-                    >
-                      <IconButton
-                        {...props}
-                        icon="dots-vertical"
-                        onPress={() => {}}
-                        iconColor="#ffffff"
-                      />
-                    </Link>
-                  )}
-                />
-              </S.ViewListSector>
-            );
-          })}
-        </S.ViewList>
-        <S.ViewList>
-          {sectors.map((sector) => {
-            return (
-              <S.ViewListSector>
+              <S.ViewListSector key={sector.setor}>
                 <Card.Title
                   style={{
                     backgroundColor: "#34a54c",

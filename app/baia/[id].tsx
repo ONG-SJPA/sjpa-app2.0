@@ -9,13 +9,21 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const BaiaPage = () => {
-  const params = useLocalSearchParams<{ id: string }>(); // Usando useSearchParams com TypeScript
+  const params = useLocalSearchParams<{ id: string }>();
   const { id } = params;
 
   const { baia: baiaData } = useBaiaPage({
     baiaId: Number(id),
-    sectorCode: "1",
+    sectorCode: "A",
   });
+
+  if (!baiaData) {
+    return (
+      <View>
+        <Text>Carregando...</Text>
+      </View>
+    );
+  }
 
   return (
     <SafeAreaView
@@ -33,9 +41,9 @@ const BaiaPage = () => {
         />
       </S.TitleContainer>
       {baiaData ? (
-        baiaData.animais.map((x) => {
+        baiaData.animais.map((x, i) => {
           return (
-            <View key={x.nome}>
+            <View key={i}>
               <Text>{x.nome}</Text>
             </View>
           );

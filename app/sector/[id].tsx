@@ -48,7 +48,7 @@ const SectorPage = () => {
                 }(s)`}
                 left={(props) => <Avatar.Image {...props} source={pathImage} />}
                 right={(props) => (
-                  <Link href={`/baia/${x.numeroBaia}`}>
+                  <Link href={`/baia/${x.numeroBaia}`} asChild>
                     <IconButton
                       {...props}
                       icon="dots-vertical"
