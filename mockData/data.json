@@ -6,7 +6,7 @@
         "baias": [
           {
             "numeroBaia": 1,
-            "tipo": "cachorro",
+            "tipo": "Cachorro",
             "animais": [
               {
                 "nome": "Max",
@@ -30,7 +30,7 @@
           },
           {
             "numeroBaia": 2,
-            "tipo": "gato",
+            "tipo": "Gato",
             "animais": [
               {
                 "nome": "Bella",
@@ -54,7 +54,7 @@
           },
           {
             "numeroBaia": 3,
-            "tipo": "cachorro",
+            "tipo": "Cachorro",
             "animais": [
               {
                 "nome": "Spike",
@@ -83,7 +83,7 @@
         "baias": [
           {
             "numeroBaia": 1,
-            "tipo": "gato",
+            "tipo": "Gato",
             "animais": [
               {
                 "nome": "Kitty",
@@ -107,7 +107,7 @@
           },
           {
             "numeroBaia": 2,
-            "tipo": "cachorro",
+            "tipo": "Cachorro",
             "animais": [
               {
                 "nome": "Toby",
@@ -131,7 +131,7 @@
           },
           {
             "numeroBaia": 3,
-            "tipo": "gato",
+            "tipo": "Gato",
             "animais": [
               {
                 "nome": "Fiona",
@@ -160,7 +160,7 @@
         "baias": [
           {
             "numeroBaia": 1,
-            "tipo": "cachorro",
+            "tipo": "Cachorro",
             "animais": [
               {
                 "nome": "Bruno",
@@ -184,7 +184,7 @@
           },
           {
             "numeroBaia": 2,
-            "tipo": "gato",
+            "tipo": "Gato",
             "animais": [
               {
                 "nome": "Shadow",
@@ -208,7 +208,7 @@
           },
           {
             "numeroBaia": 3,
-            "tipo": "cachorro",
+            "tipo": "Cachorro",
             "animais": [
               {
                 "nome": "Zeus",
@@ -237,7 +237,7 @@
         "baias": [
           {
             "numeroBaia": 1,
-            "tipo": "gato",
+            "tipo": "Gato",
             "animais": [
               {
                 "nome": "Luna",
@@ -261,7 +261,7 @@
           },
           {
             "numeroBaia": 2,
-            "tipo": "cachorro",
+            "tipo": "Cachorro",
             "animais": [
               {
                 "nome": "Toby",
@@ -285,7 +285,7 @@
           },
           {
             "numeroBaia": 3,
-            "tipo": "gato",
+            "tipo": "Gato",
             "animais": [
               {
                 "nome": "Mimi",
@@ -314,7 +314,7 @@
         "baias": [
           {
             "numeroBaia": 1,
-            "tipo": "cachorro",
+            "tipo": "Cachorro",
             "animais": [
               {
                 "nome": "Zeus",
@@ -338,7 +338,7 @@
           },
           {
             "numeroBaia": 2,
-            "tipo": "gato",
+            "tipo": "Gato",
             "animais": [
               {
                 "nome": "Fiona",
@@ -362,7 +362,7 @@
           },
           {
             "numeroBaia": 3,
-            "tipo": "cachorro",
+            "tipo": "Cachorro",
             "animais": [
               {
                 "nome": "Loki",
@@ -391,7 +391,7 @@
         "baias": [
           {
             "numeroBaia": 1,
-            "tipo": "gato",
+            "tipo": "Gato",
             "animais": [
               {
                 "nome": "Cleo",
@@ -415,7 +415,7 @@
           },
           {
             "numeroBaia": 2,
-            "tipo": "cachorro",
+            "tipo": "Cachorro",
             "animais": [
               {
                 "nome": "Duke",
@@ -439,7 +439,7 @@
           },
           {
             "numeroBaia": 3,
-            "tipo": "gato",
+            "tipo": "Gato",
             "animais": [
               {
                 "nome": "Mimi",

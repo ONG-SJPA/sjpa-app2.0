@@ -1,6 +1,6 @@
-import { AnimalTypeEnum } from "@/types/enum/animal/AnimalTypeEnum";
+import { AnimalType } from "@/types/enum/animal/AnimalTypeEnum";
 
-export interface AnimalDTO {
+export type AnimalDTO = {
   nome: string;
   // tipo: AnimalTypeEnum;
   idade: number;

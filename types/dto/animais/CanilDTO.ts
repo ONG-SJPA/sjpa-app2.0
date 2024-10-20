@@ -1,8 +1,8 @@
-import { AnimalTypeEnum } from "@/types/enum/animal/AnimalTypeEnum";
+import { AnimalType } from "@/types/enum/animal/AnimalTypeEnum";
 import { AnimalDTO } from "./AnimalDTO";
 
-export interface BaiaDTO {
+export type BaiaDTO  = {
   numeroBaia: number;
-  tipo: AnimalTypeEnum;
+  tipo: AnimalType;
   animais: AnimalDTO[];
 }

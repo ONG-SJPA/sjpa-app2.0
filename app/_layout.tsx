@@ -13,6 +13,7 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/components/useColorScheme";
 import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 import { RootStackParamList } from "@/types/route/RootStackParamList";
+import { IconButton } from "react-native-paper";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -53,6 +54,10 @@ export default function RootLayout() {
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
+interface SectorParams {
+  id: string;
+}
+
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
@@ -64,7 +69,23 @@ function RootLayoutNav() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-        <Stack.Screen name="sector/[id]" options={{ title: "Setor" }} />
+        <Stack.Screen
+          name="sector/[id]"
+          options={({ route }) => {
+            const { id } = route.params as SectorParams;
+            return {
+              title: `Setor ${id}`,
+              headerRight: () => (
+                <IconButton
+                  icon="plus"
+                  onPress={() => {
+                    console.log("clicou");
+                  }}
+                />
+              ),
+            };
+          }}
+        />
         <Stack.Screen name="baia/[id]" options={{ title: "Baia" }} />
       </Stack>
     </ThemeProvider>
