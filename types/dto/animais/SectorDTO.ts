@@ -1,6 +1,8 @@
 import { BaiaDTO } from "./CanilDTO";
 
-export interface SectorDTO {
+
+export type SectorDTO = {
+  
   setor: string;
   baias: BaiaDTO[];
 }

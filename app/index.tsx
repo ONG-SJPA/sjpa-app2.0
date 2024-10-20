@@ -6,7 +6,6 @@ import * as navigate from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { red } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 
 interface LoginFormInputs {
   email: string;
@@ -120,8 +119,6 @@ const Login: React.FC = () => {
                 </>
               )}
             />
-            {/*  */}
-
             <Button
               mode="contained"
               onPress={handleSubmit(onSubmit)}
