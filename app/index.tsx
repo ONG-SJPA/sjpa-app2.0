@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, View, Image, StyleSheet } from "react-native";
 import { Text, Headline, TextInput, Button } from "react-native-paper";
 import { LinearGradient } from "expo-linear-gradient";
@@ -6,6 +6,8 @@ import * as navigate from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import database from "@/firebase/realtimeDatabase";
+import { get, ref } from "firebase/database";
 
 interface LoginFormInputs {
   email: string;
@@ -47,6 +49,18 @@ const Login: React.FC = () => {
     // para impedir que o user volta para o login
     navigate.router.replace("/cadastro/cadastro");
   };
+
+  useEffect(() => {
+    async function getData() {
+      const sectorRef = ref(database, "sectors");
+      get(sectorRef).then((sector) => {
+        sector.forEach((s) => {
+          console.log(s.child("description").val());
+        });
+      });
+    }
+    getData();
+  });
 
   return (
     <SafeAreaView style={styles.container}>
