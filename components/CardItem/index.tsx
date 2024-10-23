@@ -35,8 +35,12 @@ function CardItem({
 
           <S.ViewInformationContainer>
             <S.ViewInformation>
-              <Text>Info?</Text>
-              <S.ItemInformation>teste info</S.ItemInformation>
+              <S.BorderRightInformationText>Info?</S.BorderRightInformationText>
+              <S.ItemInformation>
+                <S.BorderRightInformationText>
+                  Teste info
+                </S.BorderRightInformationText>
+              </S.ItemInformation>
             </S.ViewInformation>
             <S.ViewInformation>
               <Text>Info 2?</Text>

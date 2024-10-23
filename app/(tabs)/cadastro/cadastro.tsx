@@ -1,24 +1,27 @@
-import { ScrollView, StyleSheet, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView } from "react-native";
 import * as S from "@/app/(tabs)/cadastro/index.styles";
 import { TouchableOpacity } from "react-native";
 import { useCadastroPage } from "./hooks/useCadastroPage";
 import CardItem from "../../../components/CardItem";
 import { router } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Avatar } from "react-native-paper";
+import CommonLayout from "@/components/Layout/CommonLayout";
 
 export default function Cadastro() {
   const { sectors } = useCadastroPage();
 
   return (
-    <ScrollView>
-      <SafeAreaView>
+    <ScrollView
+      style={{
+        height: "100%",
+        width: "100%",
+      }}
+    >
+      <CommonLayout>
         <S.ViewList>
           {sectors.map((sector) => {
             return (
               <S.ViewListSector key={sector.setor}>
-                {/* Tornar um espaço clicavel assim todo o Card pode ser clicavel*/}
                 <GestureHandlerRootView>
                   <TouchableOpacity
                     key={sector.setor}
@@ -26,16 +29,7 @@ export default function Cadastro() {
                   >
                     <CardItem
                       rightComponent={
-                        <Avatar.Text
-                          label={sector.setor}
-                          size={40}
-                          color="#000000"
-                          style={{
-                            backgroundColor: "#5FC2BF",
-                            borderWidth: 1,
-                            borderColor: "#00000037",
-                          }}
-                        />
+                        <S.AvatarTextSection label={sector.setor} size={40} />
                       }
                       title={`Setor: ${sector.setor}`}
                       subtitle={`Qtd. de baias: ${sector.baias.length}`}
@@ -46,7 +40,7 @@ export default function Cadastro() {
             );
           })}
         </S.ViewList>
-      </SafeAreaView>
+      </CommonLayout>
     </ScrollView>
   );
 }

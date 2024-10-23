@@ -1,13 +1,11 @@
-// app/detail/[id].tsx
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import { router, useLocalSearchParams, useRouter } from "expo-router";
+import { Text, TouchableOpacity, View } from "react-native";
+import { router, useLocalSearchParams } from "expo-router";
 import { useBaiaPage } from "./hooks/useBaiaPage";
 import * as S from "./index.styles";
-import { Avatar, Card, IconButton } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Avatar } from "react-native-paper";
 import CardItem from "@/components/CardItem";
+import CommonLayout from "@/components/Layout/CommonLayout";
 
 const BaiaPage = () => {
   const params = useLocalSearchParams<{ id: string }>();
@@ -27,30 +25,17 @@ const BaiaPage = () => {
   }
 
   return (
-    <SafeAreaView
-      style={{
-        height: "100%",
-        width: "100%",
-      }}
-    >
+    <CommonLayout>
       <S.ViewList>
         {baiaData ? (
           baiaData.animais.map((x, i) => {
+            const animalFirstLetter = x.nome.charAt(0).toUpperCase();
             return (
               <S.ViewListSector key={i}>
                 <TouchableOpacity onPress={() => router.push(`/animal/1`)}>
                   <CardItem
                     rightComponent={
-                      <Avatar.Text
-                        label="T"
-                        size={40}
-                        color="#000000"
-                        style={{
-                          backgroundColor: "#5FC2BF",
-                          borderWidth: 1,
-                          borderColor: "#00000037",
-                        }}
-                      />
+                      <S.AvatarText label={animalFirstLetter} size={40} />
                     }
                     title={x.nome}
                     subtitle="Test Info"
@@ -65,7 +50,7 @@ const BaiaPage = () => {
           </View>
         )}
       </S.ViewList>
-    </SafeAreaView>
+    </CommonLayout>
   );
 };
 

@@ -18,7 +18,7 @@ export const GreenBackground = styled.View`
   border-radius: 10px;
   border-end-end-radius: 40px;
   position: absolute;
-  background-color: #62c189;
+  background-color: #03943f;
 `;
 
 export const ViewContentContainer = styled.View`
@@ -53,4 +53,8 @@ export const ViewInformation = styled.View`
 
 export const ItemInformation = styled.Text`
   font-size: 12px;
+`;
+
+export const BorderRightInformationText = styled.Text`
+  color: white;
 `;
