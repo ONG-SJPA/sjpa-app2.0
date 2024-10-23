@@ -5,6 +5,8 @@ import { TouchableOpacity } from "react-native";
 import { useCadastroPage } from "./hooks/useCadastroPage";
 import CardItemSector from "../../../components/card";
 import { router } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Avatar } from "react-native-paper";
 
 export default function Cadastro() {
   const { sectors } = useCadastroPage();
@@ -17,12 +19,29 @@ export default function Cadastro() {
             return (
               <S.ViewListSector key={sector.setor}>
                 {/* Tornar um espaço clicavel assim todo o Card pode ser clicavel*/}
-                <TouchableOpacity
-                  key={sector.setor}
-                  onPress={() => router.push(`/sector/${sector.setor}`)}
-                >
-                  <CardItemSector setor={sector} />
-                </TouchableOpacity>
+                <GestureHandlerRootView>
+                  <TouchableOpacity
+                    key={sector.setor}
+                    onPress={() => router.push(`/sector/${sector.setor}`)}
+                  >
+                    <CardItemSector
+                      rightComponent={
+                        <Avatar.Text
+                          label={sector.setor}
+                          size={40}
+                          color="#000000"
+                          style={{
+                            backgroundColor: "#5FC2BF",
+                            borderWidth: 1,
+                            borderColor: "#00000037",
+                          }}
+                        />
+                      }
+                      title={`Setor: ${sector.setor}`}
+                      subtitle={`Qtd. de baias: ${sector.baias.length}`}
+                    />
+                  </TouchableOpacity>
+                </GestureHandlerRootView>
               </S.ViewListSector>
             );
           })}

@@ -17,3 +17,15 @@ export const TitleContainer = styled.View`
   z-index: 1;
   background-color: white;
 `;
+
+export const ViewList = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ViewListSector = styled.View`
+  width: 90%;
+  margin: 10px;
+  border-radius: 10px;
+`;

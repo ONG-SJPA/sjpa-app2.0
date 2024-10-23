@@ -1,6 +1,6 @@
 // app/detail/[id].tsx
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useSectorPage } from "./hooks/useSectorPage";
 import * as S from "@/app/(tabs)/cadastro/index.styles";
@@ -8,7 +8,8 @@ import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AnimalType } from "@/types/enum/animal/AnimalTypeEnum";
 import CardItemSector from "@/components/card";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Avatar } from "react-native-paper";
 
 const SectorPage = () => {
   const params = useLocalSearchParams<{ id: string }>(); // Usando useSearchParams com TypeScript
@@ -36,30 +37,23 @@ const SectorPage = () => {
                   key={x.numeroBaia}
                   onPress={() => router.push(`/baia/${x.numeroBaia}`)}
                 >
-                  <CardItemSector baia={x} pathImage={pathImage} />
+                  <CardItemSector
+                    rightComponent={
+                      <Avatar.Image
+                        source={pathImage}
+                        size={40}
+                        style={{
+                          backgroundColor: "#5FC2BF",
+                          borderWidth: 1,
+                          borderColor: "#00000037",
+                        }}
+                      />
+                    }
+                    title={`Baia: ${x.numeroBaia}`}
+                    subtitle={`Qtd. de animais: ${x.animais.length}`}
+                  />
                 </TouchableOpacity>
               </S.ViewListSector>
-
-              // <View key={x.numeroBaia}>
-              //   <Card.Title
-              //     title={`Baia ${x.numeroBaia}`}
-              //     subtitle={`Quantidade de animais: ${x.animais.length} ${
-              //       AnimalType[
-              //         x.tipo.toString().split(".")[0] as keyof typeof AnimalType
-              //       ]
-              //     }(s)`}
-              //     left={(props) => <Avatar.Image {...props} source={pathImage} />}
-              //     // right={(props) => (
-              //     //   <Link href={`/baia/${x.numeroBaia}`} asChild>
-              //     //     <IconButton
-              //     //       {...props}
-              //     //       icon="dots-vertical"
-              //     //       onPress={() => {}}
-              //     //     />
-              //     //   </Link>
-              //     // )}
-              //   />
-              // </View>
             );
           })
         ) : (

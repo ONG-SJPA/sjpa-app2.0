@@ -1,3 +1,4 @@
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 export const Title = styled.Text`
@@ -16,4 +17,10 @@ export const TitleContainer = styled.View`
   top: 0;
   z-index: 1;
   background-color: white;
+`;
+
+export const ViewListBay = styled(GestureHandlerRootView)`
+  width: 90%;
+  margin: 10px;
+  border-radius: 10px;
 `;

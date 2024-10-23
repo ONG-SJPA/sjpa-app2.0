@@ -6,17 +6,16 @@ import React, { ReactNode } from "react";
 import { BaiaDTO } from "@/types/dto/animais/CanilDTO";
 
 type CardItemSectorProps = {
-  setor?: SectorDTO;
-  baia?: BaiaDTO;
-  pathImage?: any;
-
+  title: string;
+  subtitle: string;
+  rightComponent: ReactNode;
   iconButon?: ReactNode;
 };
 
 function CardItemSector({
-  setor,
-  baia,
-  pathImage,
+  title,
+  subtitle,
+  rightComponent,
   iconButon,
 }: CardItemSectorProps) {
   return (
@@ -47,7 +46,7 @@ function CardItemSector({
               backgroundColor: "transparent",
             }}
           >
-            {setor ? (
+            {/* {setor ? (
               <Avatar.Text
                 label={setor.setor}
                 size={40}
@@ -68,22 +67,25 @@ function CardItemSector({
                   borderColor: "#00000037",
                 }}
               />
-            )}
+            )} */}
+            {rightComponent}
             <View style={{ marginLeft: 20, backgroundColor: "transparent" }}>
               <Title style={{ fontWeight: "bold", fontSize: 24 }}>
-                {setor
+                {/* {setor
                   ? `Setor ${setor.setor}`
                   : baia
                   ? `Baia ${baia.numeroBaia}`
-                  : ""}
+                  : ""} */}
+                {title}
               </Title>
               <Paragraph>
-                Qtd. de{" "}
+                {/* Qtd. de{" "}
                 {setor
                   ? `baias: ${setor.baias.length}`
                   : baia
                   ? `animais: ${baia.animais.length}`
-                  : ""}
+                  : ""} */}
+                {subtitle}
               </Paragraph>
             </View>
             <View>{iconButon}</View>

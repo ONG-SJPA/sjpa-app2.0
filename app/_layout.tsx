@@ -86,6 +86,23 @@ function RootLayoutNav() {
             };
           }}
         />
+        <Stack.Screen
+          name="animal/[id]"
+          options={({ route }) => {
+            const { id } = route.params as SectorParams;
+            return {
+              title: `Buddy`,
+              headerRight: () => (
+                <IconButton
+                  icon="pencil"
+                  onPress={() => {
+                    console.log("clicou");
+                  }}
+                />
+              ),
+            };
+          }}
+        />
         <Stack.Screen name="baia/[id]" options={{ title: "Baia" }} />
       </Stack>
     </ThemeProvider>
