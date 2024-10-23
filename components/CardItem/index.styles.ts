@@ -30,7 +30,7 @@ export const ViewContentContainer = styled.View`
 `;
 
 export const ViewTitlesContainer = styled.View`
-  margin-left: 20px;
+  margin-left: 25px;
   background-color: transparent;
 `;
 
