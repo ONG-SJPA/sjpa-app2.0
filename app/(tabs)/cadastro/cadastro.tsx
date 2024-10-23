@@ -11,13 +11,13 @@ export default function Cadastro() {
   const { sectors } = useCadastroPage();
 
   return (
-    <ScrollView
-      style={{
-        height: "100%",
-        width: "100%",
-      }}
-    >
-      <CommonLayout>
+    <CommonLayout>
+      <ScrollView
+        style={{
+          height: "100%",
+          width: "100%",
+        }}
+      >
         <S.ViewList>
           {sectors.map((sector) => {
             return (
@@ -40,7 +40,7 @@ export default function Cadastro() {
             );
           })}
         </S.ViewList>
-      </CommonLayout>
-    </ScrollView>
+      </ScrollView>
+    </CommonLayout>
   );
 }
