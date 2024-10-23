@@ -7,7 +7,7 @@ import * as S from "@/app/(tabs)/cadastro/index.styles";
 import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AnimalType } from "@/types/enum/animal/AnimalTypeEnum";
-import CardItemSector from "@/components/card";
+import CardItem from "@/components/CardItem";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Avatar } from "react-native-paper";
 
@@ -37,7 +37,7 @@ const SectorPage = () => {
                   key={x.numeroBaia}
                   onPress={() => router.push(`/baia/${x.numeroBaia}`)}
                 >
-                  <CardItemSector
+                  <CardItem
                     rightComponent={
                       <Avatar.Image
                         source={pathImage}

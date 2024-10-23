@@ -7,7 +7,7 @@ import * as S from "./index.styles";
 import { Avatar, Card, IconButton } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CardItemSector from "@/components/card";
+import CardItem from "@/components/CardItem";
 
 const BaiaPage = () => {
   const params = useLocalSearchParams<{ id: string }>();
@@ -39,7 +39,7 @@ const BaiaPage = () => {
             return (
               <S.ViewListSector key={i}>
                 <TouchableOpacity onPress={() => router.push(`/animal/1`)}>
-                  <CardItemSector
+                  <CardItem
                     rightComponent={
                       <Avatar.Text
                         label="T"

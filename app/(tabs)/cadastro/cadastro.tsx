@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as S from "@/app/(tabs)/cadastro/index.styles";
 import { TouchableOpacity } from "react-native";
 import { useCadastroPage } from "./hooks/useCadastroPage";
-import CardItemSector from "../../../components/card";
+import CardItem from "../../../components/CardItem";
 import { router } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Avatar } from "react-native-paper";
@@ -24,7 +24,7 @@ export default function Cadastro() {
                     key={sector.setor}
                     onPress={() => router.push(`/sector/${sector.setor}`)}
                   >
-                    <CardItemSector
+                    <CardItem
                       rightComponent={
                         <Avatar.Text
                           label={sector.setor}
