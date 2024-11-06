@@ -7,7 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import database from "@/firebase/realtimeDatabase";
-import { get, ref } from "firebase/database";
+import { get, push, ref } from "firebase/database";
 
 interface LoginFormInputs {
   email: string;
@@ -53,10 +53,17 @@ const Login: React.FC = () => {
   useEffect(() => {
     async function getData() {
       const sectorRef = ref(database, "sectors");
+
+      // push(sectorRef, {
+      //   description: "campo string não nulo mas podendo ser vazio",
+      //   name: "campo string não nulo",
+      //   sex: "1 para macho e 2 para fêmea",
+      //   type: "1 para cachorro e 2 para gato)",
+      // });
+
       get(sectorRef).then((sector) => {
-        sector.forEach((s) => {
-          console.log(s.child("description").val());
-        });
+        const teste = sector.child("A").child("description").val();
+        console.log(teste);
       });
     }
     getData();

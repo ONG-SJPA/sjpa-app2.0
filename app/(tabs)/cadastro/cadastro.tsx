@@ -21,18 +21,18 @@ export default function Cadastro() {
         <S.ViewList>
           {sectors.map((sector) => {
             return (
-              <S.ViewListSector key={sector.setor}>
+              <S.ViewListSector key={sector.code}>
                 <GestureHandlerRootView>
                   <TouchableOpacity
-                    key={sector.setor}
-                    onPress={() => router.push(`/sector/${sector.setor}`)}
+                    key={sector.code}
+                    onPress={() => router.push(`/sector/${sector.code}`)}
                   >
                     <CardItem
                       rightComponent={
-                        <S.AvatarTextSection label={sector.setor} size={40} />
+                        <S.AvatarTextSection label={sector.code} size={40} />
                       }
-                      title={`Setor: ${sector.setor}`}
-                      subtitle={`Qtd. de baias: ${sector.baias.length}`}
+                      title={`Setor: ${sector.code}`}
+                      subtitle={`Qtd. de baias: ${sector.numberOfBays}`}
                     />
                   </TouchableOpacity>
                 </GestureHandlerRootView>

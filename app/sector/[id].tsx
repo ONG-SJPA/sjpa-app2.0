@@ -17,24 +17,24 @@ const SectorPage = () => {
   return (
     <CommonLayout>
       <S.ViewListBay>
-        {sector ? (
-          sector.baias.map((x) => {
+        {/* {sector ? (
+          Object.values(sector.bays).map((x) => {
             const pathImage =
-              x.tipo === AnimalType.Dog
+              x.type === AnimalType.Dog
                 ? require("./../../assets/images/dog.jpg")
                 : require("./../../assets/images/cat.jpg");
             return (
-              <S.ViewListItem key={x.numeroBaia}>
+              <S.ViewListItem key={x.bayNumber}>
                 <TouchableOpacity
-                  key={x.numeroBaia}
-                  onPress={() => router.push(`/baia/${x.numeroBaia}`)}
+                  key={x.bayNumber}
+                  onPress={() => router.push(`/baia/${x.bayNumber}`)}
                 >
                   <CardItem
                     rightComponent={
                       <S.AvatarImage source={pathImage} size={40} />
                     }
-                    title={`Baia: ${x.numeroBaia}`}
-                    subtitle={`Qtd. de animais: ${x.animais.length}`}
+                    title={`Baia: ${x.bayNumber}`}
+                    subtitle={`Qtd. de animais: ${x.animals.length}`}
                   />
                 </TouchableOpacity>
               </S.ViewListItem>
@@ -44,7 +44,7 @@ const SectorPage = () => {
           <View>
             <Text>Setor não encontrado</Text>
           </View>
-        )}
+        )} */}
       </S.ViewListBay>
     </CommonLayout>
   );

@@ -1,8 +1,10 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Tabs } from "expo-router";
+import { router, Tabs } from "expo-router";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { IconButton } from "react-native-paper";
+import { ref, set } from "firebase/database";
+import database from "@/firebase/realtimeDatabase";
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
@@ -34,7 +36,9 @@ export default function TabLayout() {
             <IconButton
               icon="plus"
               onPress={() => {
-                console.log("clicou");
+                // const sectorRef = ref(database, "sectors/B");
+                // set(sectorRef, { description: "teste de criação" });
+                router.push("/sector/create");
               }}
             />
           ),
