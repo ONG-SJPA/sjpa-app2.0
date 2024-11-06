@@ -1,14 +1,12 @@
-// app/detail/[id].tsx
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useSectorPage } from "./hooks/useSectorPage";
-import * as S from "@/app/(tabs)/cadastro/index.styles";
 import { router } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { AnimalType } from "@/types/enum/animal/AnimalTypeEnum";
-import CardItemSector from "@/components/card";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import CardItem from "@/components/CardItem";
+import CommonLayout from "@/components/Layout/CommonLayout";
+import * as S from "./index.styles";
 
 const SectorPage = () => {
   const params = useLocalSearchParams<{ id: string }>(); // Usando useSearchParams com TypeScript
@@ -17,13 +15,8 @@ const SectorPage = () => {
   const { sector } = useSectorPage({ sectorCode: id });
 
   return (
-    <SafeAreaView
-      style={{
-        height: "100%",
-        width: "100%",
-      }}
-    >
-      <S.ViewList>
+    <CommonLayout>
+      <S.ViewListBay>
         {sector ? (
           sector.baias.map((x) => {
             const pathImage =
@@ -31,35 +24,20 @@ const SectorPage = () => {
                 ? require("./../../assets/images/dog.jpg")
                 : require("./../../assets/images/cat.jpg");
             return (
-              <S.ViewListSector key={x.numeroBaia}>
+              <S.ViewListItem key={x.numeroBaia}>
                 <TouchableOpacity
                   key={x.numeroBaia}
                   onPress={() => router.push(`/baia/${x.numeroBaia}`)}
                 >
-                  <CardItemSector baia={x} pathImage={pathImage} />
+                  <CardItem
+                    rightComponent={
+                      <S.AvatarImage source={pathImage} size={40} />
+                    }
+                    title={`Baia: ${x.numeroBaia}`}
+                    subtitle={`Qtd. de animais: ${x.animais.length}`}
+                  />
                 </TouchableOpacity>
-              </S.ViewListSector>
-
-              // <View key={x.numeroBaia}>
-              //   <Card.Title
-              //     title={`Baia ${x.numeroBaia}`}
-              //     subtitle={`Quantidade de animais: ${x.animais.length} ${
-              //       AnimalType[
-              //         x.tipo.toString().split(".")[0] as keyof typeof AnimalType
-              //       ]
-              //     }(s)`}
-              //     left={(props) => <Avatar.Image {...props} source={pathImage} />}
-              //     // right={(props) => (
-              //     //   <Link href={`/baia/${x.numeroBaia}`} asChild>
-              //     //     <IconButton
-              //     //       {...props}
-              //     //       icon="dots-vertical"
-              //     //       onPress={() => {}}
-              //     //     />
-              //     //   </Link>
-              //     // )}
-              //   />
-              // </View>
+              </S.ViewListItem>
             );
           })
         ) : (
@@ -67,8 +45,8 @@ const SectorPage = () => {
             <Text>Setor não encontrado</Text>
           </View>
         )}
-      </S.ViewList>
-    </SafeAreaView>
+      </S.ViewListBay>
+    </CommonLayout>
   );
 };
 

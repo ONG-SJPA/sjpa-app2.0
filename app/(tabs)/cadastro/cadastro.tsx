@@ -1,33 +1,46 @@
-import { ScrollView, StyleSheet, Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { ScrollView } from "react-native";
 import * as S from "@/app/(tabs)/cadastro/index.styles";
 import { TouchableOpacity } from "react-native";
 import { useCadastroPage } from "./hooks/useCadastroPage";
-import CardItemSector from "../../../components/card";
+import CardItem from "../../../components/CardItem";
 import { router } from "expo-router";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import CommonLayout from "@/components/Layout/CommonLayout";
 
 export default function Cadastro() {
   const { sectors } = useCadastroPage();
 
   return (
-    <ScrollView>
-      <SafeAreaView>
+    <CommonLayout>
+      <ScrollView
+        style={{
+          height: "100%",
+          width: "100%",
+        }}
+      >
         <S.ViewList>
           {sectors.map((sector) => {
             return (
               <S.ViewListSector key={sector.setor}>
-                {/* Tornar um espaço clicavel assim todo o Card pode ser clicavel*/}
-                <TouchableOpacity
-                  key={sector.setor}
-                  onPress={() => router.push(`/sector/${sector.setor}`)}
-                >
-                  <CardItemSector setor={sector} />
-                </TouchableOpacity>
+                <GestureHandlerRootView>
+                  <TouchableOpacity
+                    key={sector.setor}
+                    onPress={() => router.push(`/sector/${sector.setor}`)}
+                  >
+                    <CardItem
+                      rightComponent={
+                        <S.AvatarTextSection label={sector.setor} size={40} />
+                      }
+                      title={`Setor: ${sector.setor}`}
+                      subtitle={`Qtd. de baias: ${sector.baias.length}`}
+                    />
+                  </TouchableOpacity>
+                </GestureHandlerRootView>
               </S.ViewListSector>
             );
           })}
         </S.ViewList>
-      </SafeAreaView>
-    </ScrollView>
+      </ScrollView>
+    </CommonLayout>
   );
 }

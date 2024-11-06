@@ -1,19 +1,20 @@
+import { Avatar, AvatarImageProps } from "react-native-paper";
 import styled from "styled-components/native";
 
-export const Title = styled.Text`
-  font-size: 30px;
-  font-weight: bold;
-  margin-left: 10px;
+export const ViewListBay = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-export const TitleContainer = styled.View`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  gap: 10px;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  background-color: white;
+export const ViewListItem = styled.View`
+  width: 90%;
+  margin: 10px;
+  border-radius: 10px;
+`;
+
+export const AvatarImage = styled(Avatar.Image)<AvatarImageProps>`
+  border-width: 1px;
+  border-color: #00000037;
+  background-color: #5fc2bf;
 `;
