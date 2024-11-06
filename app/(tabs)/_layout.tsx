@@ -1,6 +1,6 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Tabs } from "expo-router";
+import { router, Tabs } from "expo-router";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { IconButton } from "react-native-paper";
 
@@ -34,7 +34,7 @@ export default function TabLayout() {
             <IconButton
               icon="plus"
               onPress={() => {
-                console.log("clicou");
+                router.push("/sector/create");
               }}
             />
           ),

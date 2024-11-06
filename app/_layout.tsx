@@ -5,7 +5,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -70,13 +70,18 @@ function RootLayoutNav() {
                 <IconButton
                   icon="plus"
                   onPress={() => {
-                    console.log("clicou");
+                    router.push({
+                      pathname: "/baia/create",
+                      params: { sector: id },
+                    });
                   }}
                 />
               ),
             };
           }}
         />
+        <Stack.Screen name="sector/create" options={{ title: "Criar Setor" }} />
+        <Stack.Screen name="baia/create" options={{ title: "Criar Baia" }} />
         <Stack.Screen
           name="animal/[id]"
           options={({ route }) => {
