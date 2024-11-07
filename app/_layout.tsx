@@ -13,7 +13,8 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/components/useColorScheme";
 import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
 import { RootStackParamList } from "@/types/route/RootStackParamList";
-import { IconButton } from "react-native-paper";
+import { Icon, IconButton, Text } from "react-native-paper";
+import CommonMenu from "@/components/Menu";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -67,20 +68,40 @@ function RootLayoutNav() {
             return {
               title: `Setor ${id}`,
               headerRight: () => (
-                <IconButton
-                  icon="plus"
-                  onPress={() => {
-                    router.push({
-                      pathname: "/baia/create",
-                      params: { sector: id },
-                    });
-                  }}
+                <CommonMenu
+                  option1={
+                    <Text
+                      onPress={() => {
+                        router.push("/baia/create");
+                      }}
+                    >
+                      <Icon source="plus" size={24} />
+                      Cadastrar Baia
+                    </Text>
+                  }
+                  option2={
+                    <Text
+                      onPress={() => {
+                        router.push(`/sector/edit/${id}`);
+                      }}
+                    >
+                      <Icon source="pencil" size={24} />
+                      Editar Setor
+                    </Text>
+                  }
                 />
               ),
             };
           }}
         />
         <Stack.Screen name="sector/create" options={{ title: "Criar Setor" }} />
+        <Stack.Screen
+          name="sector/edit/[id]"
+          options={({ route }) => {
+            const { id } = route.params as SectorParams;
+            return { title: `Editar Setor ${id}` };
+          }}
+        />
         <Stack.Screen name="baia/create" options={{ title: "Criar Baia" }} />
         <Stack.Screen
           name="animal/[id]"

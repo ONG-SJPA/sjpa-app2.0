@@ -2,7 +2,8 @@ import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { router, Tabs } from "expo-router";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
-import { IconButton } from "react-native-paper";
+import { Icon, IconButton, Text } from "react-native-paper";
+import CommonMenu from "@/components/Menu";
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
@@ -31,11 +32,17 @@ export default function TabLayout() {
         options={{
           title: "Setores",
           headerRight: () => (
-            <IconButton
-              icon="plus"
-              onPress={() => {
-                router.push("/sector/create");
-              }}
+            <CommonMenu
+              option1={
+                <Text
+                  onPress={() => {
+                    router.push("/sector/create");
+                  }}
+                >
+                  <Icon source="plus" size={24} />
+                  Cadastrar
+                </Text>
+              }
             />
           ),
           tabBarAccessibilityLabel: "sdasdasdsd",
