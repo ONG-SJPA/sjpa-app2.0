@@ -1,17 +1,18 @@
-import React from "react";
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { router } from "expo-router";
-import { ref, set } from "firebase/database";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Button, HelperText, TextInput } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
+import React from "react";
+import { Picker } from "@react-native-picker/picker";
 
 interface FormData {
   name: string;
+  type: number;
   description: string;
 }
 
-const CreateSector = () => {
+const EditBaia = () => {
   const {
     control,
     handleSubmit,
@@ -19,6 +20,7 @@ const CreateSector = () => {
   } = useForm<FormData>({
     defaultValues: {
       name: "",
+      type: 0,
       description: "",
     },
   });
@@ -31,7 +33,7 @@ const CreateSector = () => {
   return (
     <CommonLayout>
       <View style={styles.formContainer}>
-        <View style={styles.heading}>Cadastro de Setor</View>
+        <View style={styles.heading}>Editar Baia</View>
         <Controller
           control={control}
           name="name"
@@ -45,9 +47,9 @@ const CreateSector = () => {
           render={({ field: { onChange, onBlur, value } }) => (
             <>
               <TextInput
-                style={styles.input}
-                label="Código do Setor"
+                label="Código da baia"
                 mode="outlined"
+                style={styles.input}
                 value={value}
                 onBlur={onBlur}
                 onChangeText={onChange}
@@ -57,6 +59,23 @@ const CreateSector = () => {
                 <HelperText type="error">{errors.name.message}</HelperText>
               )}
             </>
+          )}
+        />
+
+        {/* Campo Type */}
+        <Controller
+          control={control}
+          name="type"
+          rules={{ required: "O campo tipo é obrigatório" }}
+          render={({ field: { onChange, value } }) => (
+            <Picker
+              selectedValue={value}
+              style={[styles.input, { height: 50, width: 150 }]}
+              onValueChange={(itemValue) => onChange(itemValue)}
+            >
+              <Picker.Item label="Canil" value={1} />
+              <Picker.Item label="Gatil" value={2} />
+            </Picker>
           )}
         />
         <Controller
@@ -72,9 +91,9 @@ const CreateSector = () => {
           render={({ field: { onChange, onBlur, value } }) => (
             <>
               <TextInput
-                style={styles.input}
-                label="Descrição do Setor"
+                label="Descrição da baia"
                 mode="outlined"
+                style={styles.input}
                 multiline
                 numberOfLines={4}
                 value={value}
@@ -119,7 +138,7 @@ const styles = StyleSheet.create({
   },
 
   textButton: {
-    color: "#fffff",
+    color: "#ffffff",
     fontWeight: "500",
   },
   input: {
@@ -131,4 +150,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateSector;
+export default EditBaia;

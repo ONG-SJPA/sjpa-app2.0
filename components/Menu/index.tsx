@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#fff",
     borderRadius: 5,
-    width: 150,
+    width: 170,
   },
   menuItem: {
     padding: 8,

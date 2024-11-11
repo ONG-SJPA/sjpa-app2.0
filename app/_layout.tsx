@@ -53,6 +53,9 @@ interface SectorParams {
   id: string;
 }
 
+interface BaiaParams {
+  id: number;
+}
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
@@ -75,7 +78,7 @@ function RootLayoutNav() {
                         router.push("/baia/create");
                       }}
                     >
-                      <Icon source="plus" size={24} />
+                      <Icon source="plus" size={20} />
                       Cadastrar Baia
                     </Text>
                   }
@@ -85,7 +88,7 @@ function RootLayoutNav() {
                         router.push(`/sector/edit/${id}`);
                       }}
                     >
-                      <Icon source="pencil" size={24} />
+                      <Icon source="pencil" size={18} />
                       Editar Setor
                     </Text>
                   }
@@ -120,7 +123,50 @@ function RootLayoutNav() {
             };
           }}
         />
-        <Stack.Screen name="baia/[id]" options={{ title: "Baia" }} />
+        <Stack.Screen
+          name="baia/[id]"
+          options={({ route }) => {
+            const { id } = route.params as BaiaParams;
+            return {
+              title: `Baia ${id}`,
+              headerRight: () => (
+                <CommonMenu
+                  option1={
+                    <Text
+                      onPress={() => {
+                        router.push("/animal/create");
+                      }}
+                    >
+                      <Icon source="plus" size={20} />
+                      Adicionar Animais
+                    </Text>
+                  }
+                  option2={
+                    <Text
+                      onPress={() => {
+                        router.push(`/baia/edit/${id}`);
+                      }}
+                    >
+                      <Icon source="pencil" size={18} />
+                      Editar Baia
+                    </Text>
+                  }
+                />
+              ),
+            };
+          }}
+        />
+        <Stack.Screen
+          name="animal/create"
+          options={{ title: "Cadastro de animal" }}
+        />
+        <Stack.Screen
+          name="baia/edit/[id]"
+          options={({ route }) => {
+            const { id } = route.params as BaiaParams;
+            return { title: `Editar Baia ${id}` };
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );

@@ -8,8 +8,10 @@ import { StyleSheet, View } from "react-native";
 import { Button, HelperText, Provider, TextInput } from "react-native-paper";
 
 interface FormData {
-  number: number;
+  name: string;
+  year: number;
   type: number;
+  race: string;
   description: string;
 }
 
@@ -18,7 +20,7 @@ interface TypeOption {
   value: number;
 }
 
-const CreateBay: React.FC = () => {
+const CreateAnimal: React.FC = () => {
   const { sector } = useLocalSearchParams<{ sector: string }>();
 
   const {
@@ -27,7 +29,9 @@ const CreateBay: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      number: 0,
+      name: "",
+      race: "",
+      year: 0,
       type: 1,
       description: "",
     },
@@ -41,29 +45,79 @@ const CreateBay: React.FC = () => {
   return (
     <CommonLayout>
       <View style={styles.formContainer}>
-        <View style={styles.heading}>Cadastro de Baia</View>
+        <View style={styles.heading}>Cadastro de Animais</View>
         <Controller
           control={control}
-          name="number"
+          name="name"
           rules={{
-            required: "O campo número é obrigatório",
-            min: { value: 1, message: "O número deve ser pelo menos 1" },
-            max: { value: 100, message: "O número deve ser no máximo 100" },
+            required: "O campo nome é obrigatório",
           }}
           render={({ field: { onChange, onBlur, value } }) => (
             <>
               <TextInput
                 style={styles.input}
-                label="Número da baia"
+                label="Nome"
+                mode="outlined"
+                keyboardType="default"
+                value={value ? value.toString() : ""}
+                onBlur={onBlur}
+                onChangeText={(text) => onChange(parseInt(text, 10))}
+                error={!!errors.name}
+              />
+              {errors.name && (
+                <HelperText type="error">{errors.name.message}</HelperText>
+              )}
+            </>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="year"
+          rules={{
+            required: "O campo idade é obrigatório",
+            min: { value: 1, message: "A idade deve ser pelo menos 1" },
+            max: { value: 100, message: "A iddade deve ser no máximo 100" },
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <>
+              <TextInput
+                style={styles.input}
+                label="Idade"
                 mode="outlined"
                 keyboardType="numeric"
                 value={value ? value.toString() : ""}
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(parseInt(text, 10))}
-                error={!!errors.number}
+                error={!!errors.year}
               />
-              {errors.number && (
-                <HelperText type="error">{errors.number.message}</HelperText>
+              {errors.year && (
+                <HelperText type="error">{errors.year.message}</HelperText>
+              )}
+            </>
+          )}
+        />
+
+        <Controller
+          control={control}
+          name="race"
+          rules={{
+            required: "O campo raça é obrigatório",
+          }}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <>
+              <TextInput
+                style={styles.input}
+                label="Raça"
+                mode="outlined"
+                keyboardType="default"
+                value={value ? value.toString() : ""}
+                onBlur={onBlur}
+                onChangeText={(text) => onChange(parseInt(text, 10))}
+                error={!!errors.race}
+              />
+              {errors.race && (
+                <HelperText type="error">{errors.race.message}</HelperText>
               )}
             </>
           )}
@@ -83,8 +137,8 @@ const CreateBay: React.FC = () => {
               ]}
               onValueChange={(itemValue) => onChange(itemValue)}
             >
-              <Picker.Item label="Canil" value={1} />
-              <Picker.Item label="Gatil" value={2} />
+              <Picker.Item label="Cachorro" value={1} />
+              <Picker.Item label="Gato" value={2} />
             </Picker>
           )}
         />
@@ -103,7 +157,7 @@ const CreateBay: React.FC = () => {
           render={({ field: { onChange, onBlur, value } }) => (
             <>
               <TextInput
-                label="Descrição da baia"
+                label="Descrição do animal"
                 style={[styles.input, { marginTop: 16 }]}
                 mode="outlined"
                 multiline
@@ -164,4 +218,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateBay;
+export default CreateAnimal;
