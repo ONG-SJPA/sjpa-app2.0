@@ -1,6 +1,6 @@
-import { FirebaseOptions, initializeApp } from "firebase/app";
+import firebase from "firebase";
 
-const firebaseConfig: FirebaseOptions = {
+const firebaseConfig = {
   apiKey: "AIzaSyDEE6qSM4FIjxN3q1bn8Y_HENEyVQvHUTk",
   authDomain: "sjpa-14841.firebaseapp.com",
   databaseURL: "https://sjpa-14841-default-rtdb.firebaseio.com",
@@ -10,5 +10,9 @@ const firebaseConfig: FirebaseOptions = {
   appId: "1:552431107911:web:aacfc21a0aadbd5b59d662",
 };
 
-const app = initializeApp(firebaseConfig);
-export default app;
+// Initialize Firebase
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+export default firebase;

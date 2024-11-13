@@ -9,16 +9,13 @@ import CommonLayout from "@/components/Layout/CommonLayout";
 import * as S from "./index.styles";
 
 const SectorPage = () => {
-  const params = useLocalSearchParams<{ id: string }>(); // Usando useSearchParams com TypeScript
-  const { id } = params;
-
-  const { sector } = useSectorPage({ sectorCode: id });
+  const { sector, baias } = useSectorPage();
 
   return (
     <CommonLayout>
       <S.ViewListBay>
         {sector ? (
-          sector.baias.map((x) => {
+          baias.map((x) => {
             const pathImage =
               x.tipo === AnimalType.Dog
                 ? require("./../../assets/images/dog.jpg")
@@ -27,7 +24,7 @@ const SectorPage = () => {
               <S.ViewListItem key={x.numeroBaia}>
                 <TouchableOpacity
                   key={x.numeroBaia}
-                  onPress={() => router.push(`/baia/${x.numeroBaia}`)}
+                  onPress={() => router.push(`/baia/${x.id}`)}
                 >
                   <CardItem
                     rightComponent={

@@ -1,13 +1,18 @@
-import { SectorDTO } from "@/types/dto/animais/SectorDTO";
+import firebase from "@/firebase/initializer";
+import { getAllSectors } from "@/repository/setor.repository";
+import { SectorDTO } from "@/types/dto/setor/SectorDTO";
 import { useEffect, useState } from "react";
-import data from "@/mockData/data.json";
 
 export const useCadastroPage = () => {
   const [sectors, setSectors] = useState<SectorDTO[]>([]);
 
   useEffect(() => {
-    const sctors = data.canil.setores as SectorDTO[];
-    setSectors(sctors);
+    async function fetchSector() {
+      const sectors = await getAllSectors();
+      console.log(sectors);
+      setSectors(sectors ?? []);
+    }
+    fetchSector();
   }, []);
 
   return { sectors };

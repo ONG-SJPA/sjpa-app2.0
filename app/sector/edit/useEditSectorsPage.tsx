@@ -1,28 +1,22 @@
-import firebase from "@/firebase/initializer";
-import { getBaiasByIdSetor } from "@/repository/baia.repository";
 import { getSectorByCode } from "@/repository/setor.repository";
-import { BaiaDTO } from "@/types/dto/baia/BaiaDTO";
 import { SectorDTO } from "@/types/dto/setor/SectorDTO";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 
-export const useSectorPage = () => {
+export const useEditSectorsPage = () => {
   const params = useLocalSearchParams<{ id: string }>();
   const { id } = params;
 
   const [sector, setSector] = useState<SectorDTO | null>(null);
-  const [baias, setBaias] = useState<BaiaDTO[]>([]);
 
+  console.log("id", id);
   useEffect(() => {
     async function fetchSector() {
       const sector = await getSectorByCode(id);
       setSector(sector ?? null);
-
-      const baias = await getBaiasByIdSetor(sector?.id ?? "");
-      setBaias(baias);
     }
     fetchSector();
   }, []);
 
-  return { sector, baias };
+  return { sector };
 };

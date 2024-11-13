@@ -1,10 +1,10 @@
 import React from "react";
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { router } from "expo-router";
-import { ref, set } from "firebase/database";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Button, HelperText, TextInput } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
+import { createSector } from "@/repository/setor.repository";
 
 interface FormData {
   name: string;
@@ -23,8 +23,11 @@ const CreateSector = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log("criado");
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    await createSector({
+      nome: data.name,
+      observacao: data.description,
+    });
     router.push("/cadastro/cadastro");
   };
 

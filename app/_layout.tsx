@@ -11,8 +11,6 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
-import { NativeStackNavigationProp } from "react-native-screens/lib/typescript/native-stack/types";
-import { RootStackParamList } from "@/types/route/RootStackParamList";
 import { Icon, IconButton, Text } from "react-native-paper";
 import CommonMenu from "@/components/Menu";
 
@@ -46,8 +44,6 @@ export default function RootLayout() {
 
   return <RootLayoutNav />;
 }
-
-type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 interface SectorParams {
   id: string;
@@ -109,9 +105,8 @@ function RootLayoutNav() {
         <Stack.Screen
           name="animal/[id]"
           options={({ route }) => {
-            const { id } = route.params as SectorParams;
             return {
-              title: `Buddy`,
+              title: "",
               headerRight: () => (
                 <IconButton
                   icon="pencil"

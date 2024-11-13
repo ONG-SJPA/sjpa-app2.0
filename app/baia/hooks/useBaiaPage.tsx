@@ -1,24 +1,28 @@
-import { SectorDTO } from "@/types/dto/animais/SectorDTO";
+import { SectorDTO } from "@/types/dto/setor/SectorDTO";
 import { useEffect, useState } from "react";
 import data from "@/mockData/data.json";
-import { BaiaDTO } from "@/types/dto/animais/CanilDTO";
+import { BaiaDTO } from "@/types/dto/animais/BaiaDTO";
+import { getBaiaById } from "@/repository/baia.repository";
+import { AnimalDTO } from "@/types/dto/animal/AnimalDTO";
+import { getAnimalsByBaiaId } from "@/repository/animal.repository";
 
 interface OwnProps {
-  baiaId: number;
-  sectorCode: string;
+  baiaId: string;
 }
 
-export const useBaiaPage = ({ baiaId, sectorCode }: OwnProps) => {
+export const useBaiaPage = ({ baiaId }: OwnProps) => {
   const [baia, setBaia] = useState<BaiaDTO | null>(null);
+  const [animais, setAnimais] = useState<AnimalDTO[]>([]);
 
   useEffect(() => {
-    const sctors = data.canil.setores as SectorDTO[];
-    const sectorData: SectorDTO | null =
-      sctors.find((s) => s.setor === sectorCode) ?? null;
-    const baiaData: BaiaDTO | null =
-      sectorData?.baias.find((b) => b.numeroBaia === baiaId) ?? null;
-    setBaia(baiaData);
+    async function fetchBaia() {
+      const baiaData = await getBaiaById(baiaId);
+      const animais = await getAnimalsByBaiaId(baiaId);
+      setBaia(baiaData);
+      setAnimais(animais);
+    }
+    fetchBaia();
   }, []);
 
-  return { baia };
+  return { baia, animais };
 };

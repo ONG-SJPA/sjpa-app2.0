@@ -1,9 +1,11 @@
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { router } from "expo-router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Button, HelperText, TextInput } from "react-native-paper";
+import { Button, HelperText, TextInput, Title } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import React from "react";
+import { useEditSectorsPage } from "./useEditSectorsPage";
+import { updateSector } from "@/repository/setor.repository";
 
 interface FormData {
   name: string;
@@ -11,26 +13,42 @@ interface FormData {
 }
 
 const EditSector = () => {
+  const { sector } = useEditSectorsPage();
+
+  console.log({ sector });
+
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<FormData>({
     defaultValues: {
-      name: "",
-      description: "",
+      name: sector?.nome ?? "",
+      description: sector?.observacao ?? "",
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log("criado");
+  React.useEffect(() => {
+    setValue("name", sector?.nome ?? "");
+    setValue("description", sector?.observacao ?? "");
+  }, [sector]);
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    await updateSector({
+      nome: data.name,
+      observacao: data.description,
+      id: sector?.id ?? "",
+    });
     router.push("/cadastro/cadastro");
   };
 
   return (
     <CommonLayout>
       <View style={styles.formContainer}>
-        <View style={styles.heading}>Editar Setor</View>
+        <View style={styles.heading}>
+          <Title>Editar Setor</Title>
+        </View>
         <Controller
           control={control}
           name="name"
