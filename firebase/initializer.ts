@@ -1,4 +1,6 @@
 import firebase from "firebase";
+// import "@firebase/auth";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDEE6qSM4FIjxN3q1bn8Y_HENEyVQvHUTk",
@@ -14,5 +16,9 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
+
+// firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+
+// firebase.auth().useDeviceLanguage();
 
 export default firebase;

@@ -1,5 +1,5 @@
 import firebase from "@/firebase/initializer";
-import { BaiaDTO } from "@/types/dto/animais/BaiaDTO";
+import { BaiaDTO } from "@/types/dto/baia/BaiaDTO";
 
 export async function getBaiasByIdSetor(idSetor: string): Promise<BaiaDTO[]> {
   const baias = await firebase.firestore().collection("baias").get();
