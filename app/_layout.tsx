@@ -71,7 +71,10 @@ function RootLayoutNav() {
                   option1={
                     <Text
                       onPress={() => {
-                        router.push("/baia/create");
+                        router.push({
+                          pathname: "/baia/create",
+                          params: { sector: id },
+                        });
                       }}
                     >
                       <Icon source="plus" size={20} />

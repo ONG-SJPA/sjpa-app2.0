@@ -15,8 +15,6 @@ interface FormData {
 const EditSector = () => {
   const { sector } = useEditSectorsPage();
 
-  console.log({ sector });
-
   const {
     control,
     handleSubmit,

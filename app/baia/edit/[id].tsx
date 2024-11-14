@@ -1,47 +1,59 @@
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { router } from "expo-router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Button, HelperText, TextInput } from "react-native-paper";
+import { Button, HelperText, TextInput, Title } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import React from "react";
 import { Picker } from "@react-native-picker/picker";
-
-interface FormData {
-  name: string;
-  type: number;
-  description: string;
-}
+import { useEditBaiaPage } from "./useEditBaiaPage";
+import { updateBaia } from "@/repository/baia.repository";
+import { FormData } from "./types";
 
 const EditBaia = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<FormData>({
     defaultValues: {
-      name: "",
-      type: 0,
-      description: "",
+      id: "",
+      numeroBaia: null,
+      tipo: 0,
+      observacao: "",
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log("criado");
+  useEditBaiaPage({ setValue });
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    if (!data.numeroBaia) {
+      throw new Error("Número da baia é obrigatório");
+    }
+
+    await updateBaia({
+      id: data.id,
+      numeroBaia: data.numeroBaia,
+      tipo: data.tipo,
+      observacao: data.observacao,
+    });
     router.push("/cadastro/cadastro");
   };
 
   return (
     <CommonLayout>
       <View style={styles.formContainer}>
-        <View style={styles.heading}>Editar Baia</View>
+        <View style={styles.heading}>
+          <Title>Editar de Baia</Title>
+        </View>
         <Controller
           control={control}
-          name="name"
+          name="numeroBaia"
           rules={{
-            required: "O campo nome é obrigatório",
-            maxLength: {
-              value: 3,
-              message: "O nome deve ter no máximo 3 caracteres",
+            required: "O campo número da baia é obrigatório",
+            max: {
+              value: 999,
+              message: "O número da baia deve ser no máximo 999",
             },
           }}
           render={({ field: { onChange, onBlur, value } }) => (
@@ -50,13 +62,16 @@ const EditBaia = () => {
                 label="Código da baia"
                 mode="outlined"
                 style={styles.input}
-                value={value}
+                value={value ? value.toString() : ""}
                 onBlur={onBlur}
-                onChangeText={onChange}
-                error={!!errors.name}
+                onChangeText={(text) => onChange(text ? parseInt(text) : null)}
+                keyboardType="numeric"
+                error={!!errors.numeroBaia}
               />
-              {errors.name && (
-                <HelperText type="error">{errors.name.message}</HelperText>
+              {errors.numeroBaia && (
+                <HelperText type="error">
+                  {errors.numeroBaia.message}
+                </HelperText>
               )}
             </>
           )}
@@ -65,7 +80,7 @@ const EditBaia = () => {
         {/* Campo Type */}
         <Controller
           control={control}
-          name="type"
+          name="tipo"
           rules={{ required: "O campo tipo é obrigatório" }}
           render={({ field: { onChange, value } }) => (
             <Picker
@@ -80,7 +95,7 @@ const EditBaia = () => {
         />
         <Controller
           control={control}
-          name="description"
+          name="observacao"
           rules={{
             required: "O campo descrição é obrigatório",
             maxLength: {
@@ -99,11 +114,11 @@ const EditBaia = () => {
                 value={value}
                 onBlur={onBlur}
                 onChangeText={onChange}
-                error={!!errors.description}
+                error={!!errors.observacao}
               />
-              {errors.description && (
+              {errors.observacao && (
                 <HelperText type="error">
-                  {errors.description.message}
+                  {errors.observacao.message}
                 </HelperText>
               )}
             </>

@@ -9,7 +9,6 @@ export const useCadastroPage = () => {
   useEffect(() => {
     async function fetchSector() {
       const sectors = await getAllSectors();
-      console.log(sectors);
       setSectors(sectors ?? []);
     }
     fetchSector();

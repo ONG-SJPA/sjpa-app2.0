@@ -1,10 +1,8 @@
 import { AnimalType } from "@/types/enum/animal/AnimalTypeEnum";
 
-export interface BaiaDTO {
-  id: string;
+export interface BaiaCreateDTO {
   numeroBaia: number;
   tipo: AnimalType;
-  animais: string[];
+  setorCode: string;
   observacao: string;
-  idSetor: string;
 }

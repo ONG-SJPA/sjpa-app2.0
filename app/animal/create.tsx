@@ -2,7 +2,6 @@ import React from "react";
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { Picker } from "@react-native-picker/picker";
 import { router, useLocalSearchParams } from "expo-router";
-import { ref, set } from "firebase/database";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { StyleSheet, View } from "react-native";
 import { Button, HelperText, Provider, TextInput } from "react-native-paper";

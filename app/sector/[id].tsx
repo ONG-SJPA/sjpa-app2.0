@@ -24,7 +24,12 @@ const SectorPage = () => {
               <S.ViewListItem key={x.numeroBaia}>
                 <TouchableOpacity
                   key={x.numeroBaia}
-                  onPress={() => router.push(`/baia/${x.id}`)}
+                  onPress={() =>
+                    router.push({
+                      pathname: `/baia/[id]`,
+                      params: { id: x.id, sector: sector.nome },
+                    })
+                  }
                 >
                   <CardItem
                     rightComponent={

@@ -9,7 +9,6 @@ export const useEditSectorsPage = () => {
 
   const [sector, setSector] = useState<SectorDTO | null>(null);
 
-  console.log("id", id);
   useEffect(() => {
     async function fetchSector() {
       const sector = await getSectorByCode(id);

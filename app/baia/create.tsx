@@ -2,15 +2,21 @@ import React from "react";
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { Picker } from "@react-native-picker/picker";
 import { router, useLocalSearchParams } from "expo-router";
-import { ref, set } from "firebase/database";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { StyleSheet, View } from "react-native";
-import { Button, HelperText, Provider, TextInput } from "react-native-paper";
+import {
+  Button,
+  HelperText,
+  Provider,
+  TextInput,
+  Title,
+} from "react-native-paper";
+import { createBaia } from "@/repository/baia.repository";
 
 interface FormData {
-  number: number;
-  type: number;
-  description: string;
+  numeroBaia: number;
+  tipo: number;
+  observacao: string;
 }
 
 interface TypeOption {
@@ -27,24 +33,31 @@ const CreateBay: React.FC = () => {
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
-      number: 0,
-      type: 1,
-      description: "",
+      numeroBaia: 0,
+      tipo: 1,
+      observacao: "",
     },
   });
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log("criado");
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    await createBaia({
+      numeroBaia: data.numeroBaia,
+      tipo: data.tipo,
+      setorCode: sector,
+      observacao: data.observacao,
+    });
     router.push(`/sector/${sector}`);
   };
 
   return (
     <CommonLayout>
       <View style={styles.formContainer}>
-        <View style={styles.heading}>Cadastro de Baia</View>
+        <View style={styles.heading}>
+          <Title>Cadastro de Baia</Title>
+        </View>
         <Controller
           control={control}
-          name="number"
+          name="numeroBaia"
           rules={{
             required: "O campo número é obrigatório",
             min: { value: 1, message: "O número deve ser pelo menos 1" },
@@ -60,10 +73,12 @@ const CreateBay: React.FC = () => {
                 value={value ? value.toString() : ""}
                 onBlur={onBlur}
                 onChangeText={(text) => onChange(parseInt(text, 10))}
-                error={!!errors.number}
+                error={!!errors.numeroBaia}
               />
-              {errors.number && (
-                <HelperText type="error">{errors.number.message}</HelperText>
+              {errors.numeroBaia && (
+                <HelperText type="error">
+                  {errors.numeroBaia.message}
+                </HelperText>
               )}
             </>
           )}
@@ -72,7 +87,7 @@ const CreateBay: React.FC = () => {
         {/* Campo Type */}
         <Controller
           control={control}
-          name="type"
+          name="tipo"
           rules={{ required: "O campo tipo é obrigatório" }}
           render={({ field: { onChange, value } }) => (
             <Picker
@@ -92,7 +107,7 @@ const CreateBay: React.FC = () => {
         {/* Campo Description */}
         <Controller
           control={control}
-          name="description"
+          name="observacao"
           rules={{
             required: "O campo descrição é obrigatório",
             maxLength: {
@@ -111,11 +126,11 @@ const CreateBay: React.FC = () => {
                 value={value}
                 onBlur={onBlur}
                 onChangeText={onChange}
-                error={!!errors.description}
+                error={!!errors.observacao}
               />
-              {errors.description && (
+              {errors.observacao && (
                 <HelperText type="error">
-                  {errors.description.message}
+                  {errors.observacao.message}
                 </HelperText>
               )}
             </>
