@@ -38,7 +38,13 @@ const BaiaPage = () => {
                       <S.AvatarText label={animalFirstLetter} size={40} />
                     }
                     title={x.nome}
-                    subtitle="Test Info"
+                    subtitle={x.raca}
+                    titleInfo="Idade"
+                    info={x.idade.toString()}
+                    titleInfo2="Observação"
+                    info2={x.observacao}
+                    titleInfo3="Tipo"
+                    info3={x.tipo === 1 ? "Cachorro" : "Gato"}
                   />
                 </TouchableOpacity>
               </S.ViewListSector>

@@ -8,5 +8,4 @@ export type AnimalDTO = {
   raca: string;
   observacao: string;
   idBaia: string;
-  idSetor: string;
 };

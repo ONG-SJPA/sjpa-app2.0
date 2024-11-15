@@ -7,12 +7,13 @@ import {
 import { useFonts } from "expo-font";
 import { router, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import { Icon, IconButton, Text } from "react-native-paper";
 import CommonMenu from "@/components/Menu";
+import { getBaiaById } from "@/repository/baia.repository";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -50,7 +51,12 @@ interface SectorParams {
 }
 
 interface BaiaParams {
-  id: number;
+  id: string;
+  numeroBaia: string;
+}
+
+interface AnimalParams {
+  id: string;
 }
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
@@ -108,13 +114,14 @@ function RootLayoutNav() {
         <Stack.Screen
           name="animal/[id]"
           options={({ route }) => {
+            const { id } = route.params as AnimalParams;
             return {
               title: "",
               headerRight: () => (
                 <IconButton
                   icon="pencil"
                   onPress={() => {
-                    console.log("clicou");
+                    router.push(`/animal/edit/${id}`);
                   }}
                 />
               ),
@@ -124,15 +131,19 @@ function RootLayoutNav() {
         <Stack.Screen
           name="baia/[id]"
           options={({ route }) => {
-            const { id } = route.params as BaiaParams;
+            const { id, numeroBaia } = route.params as BaiaParams;
+
             return {
-              title: `Baia ${id}`,
+              title: `Baia ${numeroBaia ?? id}`,
               headerRight: () => (
                 <CommonMenu
                   option1={
                     <Text
                       onPress={() => {
-                        router.push("/animal/create");
+                        router.push({
+                          pathname: "/animal/create",
+                          params: { idBaia: id },
+                        });
                       }}
                     >
                       <Icon source="plus" size={20} />
@@ -163,6 +174,13 @@ function RootLayoutNav() {
           options={({ route }) => {
             const { id } = route.params as BaiaParams;
             return { title: `Editar Baia ${id}` };
+          }}
+        />
+        <Stack.Screen
+          name="animal/edit/[id]"
+          options={({ route }) => {
+            const { id } = route.params as BaiaParams;
+            return { title: `Editar` };
           }}
         />
       </Stack>

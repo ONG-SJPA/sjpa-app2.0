@@ -27,7 +27,11 @@ const SectorPage = () => {
                   onPress={() =>
                     router.push({
                       pathname: `/baia/[id]`,
-                      params: { id: x.id, sector: sector.nome },
+                      params: {
+                        id: x.id,
+                        sector: sector.nome,
+                        numeroBaia: x.numeroBaia,
+                      },
                     })
                   }
                 >

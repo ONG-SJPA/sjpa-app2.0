@@ -5,7 +5,8 @@ import { router, useLocalSearchParams } from "expo-router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { StyleSheet, View } from "react-native";
 import { Button, HelperText, Provider, TextInput } from "react-native-paper";
-import { createAnimal } from "@/repository/animal.repository";
+import { createAnimal, updateAnimal } from "@/repository/animal.repository";
+import { useEditAnimalPage } from "./useEditAnimalPage";
 
 interface FormData {
   nome: string;
@@ -15,15 +16,16 @@ interface FormData {
   observacao: string;
 }
 
-const CreateAnimal: React.FC = () => {
-  const { idBaia } = useLocalSearchParams<{
-    idBaia: string;
+const EditAnimal: React.FC = () => {
+  const { id } = useLocalSearchParams<{
+    id: string;
   }>();
 
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<FormData>({
     defaultValues: {
       nome: "",
@@ -34,12 +36,18 @@ const CreateAnimal: React.FC = () => {
     },
   });
 
+  useEditAnimalPage({ setValue });
+
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    await createAnimal({
-      ...data,
-      idBaia,
+    await updateAnimal({
+      id,
+      nome: data.nome,
+      idade: data.idade,
+      tipo: data.tipo,
+      raca: data.raca,
+      observacao: data.observacao,
     });
-    router.push(`/baia/${idBaia}`);
+    router.push(`/animal/${id}`);
   };
 
   return (
@@ -218,4 +226,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateAnimal;
+export default EditAnimal;
