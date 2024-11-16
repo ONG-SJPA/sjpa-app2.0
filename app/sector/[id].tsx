@@ -7,6 +7,7 @@ import { AnimalType } from "@/types/enum/animal/AnimalTypeEnum";
 import CardItem from "@/components/CardItem";
 import CommonLayout from "@/components/Layout/CommonLayout";
 import * as S from "./index.styles";
+import { Avatar } from "react-native-paper";
 
 const SectorPage = () => {
   const { sector, baias } = useSectorPage();
@@ -30,6 +31,7 @@ const SectorPage = () => {
                       params: {
                         id: x.id,
                         sector: sector.nome,
+                        idSector: sector.id,
                         numeroBaia: x.numeroBaia,
                       },
                     })
@@ -41,6 +43,19 @@ const SectorPage = () => {
                     }
                     title={`Baia: ${x.numeroBaia}`}
                     subtitle={`Qtd. de animais: ${x.animais.length}`}
+                    titleInfo3="Checagem"
+                    info3={
+                      <Avatar.Icon
+                        size={32}
+                        icon={x.missingCheck ? "minus-circle" : "check"}
+                        color="#ffffff"
+                        style={{
+                          backgroundColor: x.missingCheck
+                            ? "#ff0000"
+                            : "#00ff00",
+                        }}
+                      />
+                    }
                   />
                 </TouchableOpacity>
               </S.ViewListItem>

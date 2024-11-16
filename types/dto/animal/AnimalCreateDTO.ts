@@ -5,4 +5,5 @@ export interface AnimalCreateDTO {
   raca: string;
   observacao: string;
   idBaia: string;
+  idSetor: string;
 }

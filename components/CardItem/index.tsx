@@ -21,7 +21,7 @@ type CardItemSectorProps = {
   titleInfo2?: string;
   info2?: string;
   titleInfo3?: string;
-  info3?: string;
+  info3?: string | ReactNode;
 };
 
 function CardItem({
@@ -69,7 +69,7 @@ function CardItem({
             </S.ViewInformation>
             <S.ViewInformation>
               <Text>{titleInfo3}</Text>
-              <S.ItemInformation>{shortenString(info3)}</S.ItemInformation>
+              <S.ItemInformation>{info3}</S.ItemInformation>
             </S.ViewInformation>
           </S.ViewInformationContainer>
         </Card.Content>

@@ -1,18 +1,35 @@
 import firebase from "@/firebase/initializer";
 import { getAllSectors } from "@/repository/setor.repository";
 import { SectorDTO } from "@/types/dto/setor/SectorDTO";
-import { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import { useCallback, useEffect, useState } from "react";
 
 export const useCadastroPage = () => {
   const [sectors, setSectors] = useState<SectorDTO[]>([]);
 
-  useEffect(() => {
-    async function fetchSector() {
-      const sectors = await getAllSectors();
-      setSectors(sectors ?? []);
-    }
-    fetchSector();
-  }, []);
+  const minhaFuncao = useCallback(async () => {
+    const sectors = await getAllSectors();
+    setSectors(sectors ?? []);
+  }, []); // As dependências precisam estar corretas para evitar chamadas extras.
+
+  useFocusEffect(
+    useCallback(() => {
+      minhaFuncao();
+      // Retorno opcional para cleanup quando a tela perde o foco
+      return () => {
+        console.log("Saindo da rota");
+      };
+    }, [minhaFuncao]),
+  );
+
+  // useEffect(() => {
+  //   async function fetchSector() {
+  //     const sectors = await getAllSectors();
+  //     setSectors(sectors ?? []);
+  //   }
+
+  //   fetchSector();
+  // }, []);
 
   return { sectors };
 };

@@ -1,216 +1,71 @@
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { ScrollView } from "react-native";
-import { Avatar, IconButton } from "react-native-paper";
-import * as S from "./index.styles";
+import { useEffect, useState } from "react";
+import { CheckDTO } from "@/types/dto/check/CheckDTO";
+import { createCheck, getChecks } from "@/repository/check.repository";
+import CheckCard from "../../../components/CheckCard";
+import {
+  Button,
+  Dialog,
+  PaperProvider,
+  Portal,
+  Text,
+} from "react-native-paper";
 
 export default function ConferenceScreen() {
+  const [checks, setChecks] = useState<CheckDTO[]>([]);
+  const [visible, setVisible] = useState(false);
+
+  const showDialog = () => setVisible(true);
+
+  const hideDialog = () => setVisible(false);
+
+  useEffect(() => {
+    getChecks().then((checks) => {
+      setChecks(checks);
+    });
+  }, []);
+
   return (
     <CommonLayout>
       <ScrollView>
-        <S.ViewCardContainer
-          title="22/10/2024"
-          subtitle="Não iniciado"
-          left={(props: any) => (
-            <Avatar.Icon
-              {...props}
-              icon="minus-circle"
-              color="#ffffff"
-              style={{
-                backgroundColor: "#ff0000",
-              }}
-            />
-          )}
-          right={(props: any) => (
-            <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-          )}
-        />
-        <S.ViewCardContainer
-          title="21/10/2024"
-          subtitle="Em progresso"
-          left={(props: any) => (
-            <Avatar.Icon
-              {...props}
-              icon="progress-clock"
-              color="#ffffff"
-              style={{
-                backgroundColor: "#ff8400",
-              }}
-            />
-          )}
-          right={(props: any) => (
-            <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-          )}
-        />
-        <S.ViewCardContainer
-          title="20/10/2024"
-          subtitle="Concluído"
-          left={(props: any) => (
-            <Avatar.Icon
-              {...props}
-              icon="check"
-              color="#ffffff"
-              style={{
-                backgroundColor: "#0cdb0c",
-              }}
-            />
-          )}
-          right={(props: any) => (
-            <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-          )}
-        />
-        <S.ViewCardContainer
-          title="19/10/2024"
-          subtitle="Concluído"
-          left={(props: any) => (
-            <Avatar.Icon
-              {...props}
-              icon="check"
-              color="#ffffff"
-              style={{
-                backgroundColor: "#0cdb0c",
-              }}
-            />
-          )}
-          right={(props: any) => (
-            <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-          )}
-        />
-        <S.ViewCardContainer
-          title="18/10/2024"
-          subtitle="Concluído"
-          left={(props: any) => (
-            <Avatar.Icon
-              {...props}
-              icon="check"
-              color="#ffffff"
-              style={{
-                backgroundColor: "#0cdb0c",
-              }}
-            />
-          )}
-          right={(props: any) => (
-            <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-          )}
-        />
-        <S.ViewCardContainer
-          title="17/10/2024"
-          subtitle="Concluído"
-          left={(props: any) => (
-            <Avatar.Icon
-              {...props}
-              icon="check"
-              color="#ffffff"
-              style={{
-                backgroundColor: "#0cdb0c",
-              }}
-            />
-          )}
-          right={(props: any) => (
-            <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-          )}
-        />
-        <S.ViewCardContainer
-          title="17/10/2024"
-          subtitle="Concluído"
-          left={(props: any) => (
-            <Avatar.Icon
-              {...props}
-              icon="check"
-              color="#ffffff"
-              style={{
-                backgroundColor: "#0cdb0c",
-              }}
-            />
-          )}
-          right={(props: any) => (
-            <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-          )}
-        />
-        <S.ViewCardContainer
-          title="17/10/2024"
-          subtitle="Concluído"
-          left={(props: any) => (
-            <Avatar.Icon
-              {...props}
-              icon="check"
-              color="#ffffff"
-              style={{
-                backgroundColor: "#0cdb0c",
-              }}
-            />
-          )}
-          right={(props: any) => (
-            <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-          )}
-        />
-        <S.ViewCardContainer
-          title="17/10/2024"
-          subtitle="Concluído"
-          left={(props: any) => (
-            <Avatar.Icon
-              {...props}
-              icon="check"
-              color="#ffffff"
-              style={{
-                backgroundColor: "#0cdb0c",
-              }}
-            />
-          )}
-          right={(props: any) => (
-            <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-          )}
-        />
-        <S.ViewCardContainer
-          title="17/10/2024"
-          subtitle="Concluído"
-          left={(props: any) => (
-            <Avatar.Icon
-              {...props}
-              icon="check"
-              color="#ffffff"
-              style={{
-                backgroundColor: "#0cdb0c",
-              }}
-            />
-          )}
-          right={(props: any) => (
-            <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-          )}
-        />
-        <S.ViewCardContainer
-          title="17/10/2024"
-          subtitle="Concluído"
-          left={(props: any) => (
-            <Avatar.Icon
-              {...props}
-              icon="check"
-              color="#ffffff"
-              style={{
-                backgroundColor: "#0cdb0c",
-              }}
-            />
-          )}
-          right={(props: any) => (
-            <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-          )}
-        />
-        <S.ViewCardContainer
-          title="17/10/2024"
-          subtitle="Concluído"
-          left={(props: any) => (
-            <Avatar.Icon
-              {...props}
-              icon="check"
-              color="#ffffff"
-              style={{
-                backgroundColor: "#0cdb0c",
-              }}
-            />
-          )}
-          right={(props: any) => (
-            <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
-          )}
-        />
+        <Button onPress={showDialog}>Iniciar Nova Checagem</Button>
+        {checks.map((check, i) => (
+          <CheckCard key={check.id} check={check} isPast={i > 0} />
+        ))}
+        <PaperProvider>
+          <Portal>
+            <Dialog visible={visible} onDismiss={hideDialog}>
+              <Dialog.Title>Checagem</Dialog.Title>
+              <Dialog.Content>
+                <Text variant="bodyMedium">
+                  Tem certeza que deseja iniciar uma nova checagem em{" "}
+                  {new Date().toLocaleDateString()}?
+                </Text>
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button
+                  onPress={async () => {
+                    hideDialog();
+                  }}
+                >
+                  CANCELAR
+                </Button>
+                <Button
+                  onPress={async () => {
+                    await createCheck(new Date());
+                    getChecks().then((checks) => {
+                      setChecks(checks);
+                    });
+                    hideDialog();
+                  }}
+                >
+                  CONFIRMAR
+                </Button>
+              </Dialog.Actions>
+            </Dialog>
+          </Portal>
+        </PaperProvider>
       </ScrollView>
     </CommonLayout>
   );

@@ -46,7 +46,7 @@ export default function TabLayout() {
             />
           ),
           tabBarAccessibilityLabel: "sdasdasdsd",
-          tabBarLabel: "Cadastro",
+          tabBarLabel: "Animais",
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="archive" color={color} />
           ),
@@ -56,15 +56,7 @@ export default function TabLayout() {
         name="conference/conference"
         options={{
           tabBarItemStyle: { alignContent: "space-around" },
-          title: "Conferência",
-          headerRight: () => (
-            <IconButton
-              icon="plus"
-              onPress={() => {
-                console.log("clicou");
-              }}
-            />
-          ),
+          title: "Checagem",
           tabBarIcon: ({ color }) => <TabBarIcon name="check" color={color} />,
         }}
       />

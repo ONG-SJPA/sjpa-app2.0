@@ -4,4 +4,5 @@ export type SectorDTO = {
   baias: string[];
   animais: string[];
   observacao: string;
+  missingCheck: boolean;
 };

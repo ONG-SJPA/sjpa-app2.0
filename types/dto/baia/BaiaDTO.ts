@@ -7,4 +7,5 @@ export interface BaiaDTO {
   animais: string[];
   observacao: string;
   idSetor: string;
+  missingCheck: boolean;
 }

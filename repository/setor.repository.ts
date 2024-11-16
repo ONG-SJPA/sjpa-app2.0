@@ -9,10 +9,28 @@ export async function getAllSectors(): Promise<SectorDTO[]> {
     .collection("setores")
     .orderBy("nome", "asc")
     .get();
+
+  const lastCheck = await firebase
+    .firestore()
+    .collection("checks")
+    .orderBy("check", "desc")
+    .limit(1)
+    .get();
+
+  const allAnimals = await firebase.firestore().collection("animais").get();
+
   return sectors.docs.map((doc) => {
     return {
       id: doc.id,
       ...doc.data(),
+      missingCheck:
+        lastCheck.docs.length > 0
+          ? allAnimals.docs.some(
+              (animal) =>
+                animal.data().idSetor === doc.id &&
+                animal.data().lastCheck !== lastCheck.docs[0].id,
+            )
+          : false,
     } as SectorDTO;
   });
 }

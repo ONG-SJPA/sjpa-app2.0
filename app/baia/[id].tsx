@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useBaiaPage } from "./hooks/useBaiaPage";
 import * as S from "./index.styles";
 import CardItem from "@/components/CardItem";
 import CommonLayout from "@/components/Layout/CommonLayout";
+import { CheckDTO } from "@/types/dto/check/CheckDTO";
+import { getLastCheck } from "@/repository/check.repository";
+import { Avatar } from "react-native-paper";
 
 const BaiaPage = () => {
   const params = useLocalSearchParams<{ id: string }>();
   const { id } = params;
+
+  const [lastCheck, setLastCheck] = useState<CheckDTO | null>();
+
+  useEffect(() => {
+    async function getLastCheckAndVerify() {
+      const lastCheck = await getLastCheck();
+      setLastCheck(lastCheck);
+    }
+    getLastCheckAndVerify();
+  }, []);
 
   const { baia: baiaData, animais } = useBaiaPage({
     baiaId: id,
@@ -41,10 +54,26 @@ const BaiaPage = () => {
                     subtitle={x.raca}
                     titleInfo="Idade"
                     info={x.idade.toString()}
-                    titleInfo2="Observação"
-                    info2={x.observacao}
-                    titleInfo3="Tipo"
-                    info3={x.tipo === 1 ? "Cachorro" : "Gato"}
+                    titleInfo2="Tipo"
+                    info2={x.tipo === 1 ? "Cachorro" : "Gato"}
+                    titleInfo3="Checagem"
+                    info3={
+                      <Avatar.Icon
+                        size={32}
+                        icon={
+                          x.lastCheck !== lastCheck?.id
+                            ? "minus-circle"
+                            : "check"
+                        }
+                        color="#ffffff"
+                        style={{
+                          backgroundColor:
+                            x.lastCheck !== lastCheck?.id
+                              ? "#ff0000"
+                              : "#00ff00",
+                        }}
+                      />
+                    }
                   />
                 </TouchableOpacity>
               </S.ViewListSector>

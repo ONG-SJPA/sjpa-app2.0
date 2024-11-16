@@ -6,6 +6,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { StyleSheet, View } from "react-native";
 import { Button, HelperText, Provider, TextInput } from "react-native-paper";
 import { createAnimal } from "@/repository/animal.repository";
+import { getBaiaById } from "@/repository/baia.repository";
 
 interface FormData {
   nome: string;
@@ -35,9 +36,16 @@ const CreateAnimal: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
+    const baiaData = await getBaiaById(idBaia);
+
+    if (!baiaData) {
+      return;
+    }
+
     await createAnimal({
       ...data,
       idBaia,
+      idSetor: baiaData.idSetor,
     });
     router.push(`/baia/${idBaia}`);
   };

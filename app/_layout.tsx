@@ -53,6 +53,7 @@ interface SectorParams {
 interface BaiaParams {
   id: string;
   numeroBaia: string;
+  idSector: string;
 }
 
 interface AnimalParams {
@@ -131,7 +132,7 @@ function RootLayoutNav() {
         <Stack.Screen
           name="baia/[id]"
           options={({ route }) => {
-            const { id, numeroBaia } = route.params as BaiaParams;
+            const { id, numeroBaia, idSector } = route.params as BaiaParams;
 
             return {
               title: `Baia ${numeroBaia ?? id}`,

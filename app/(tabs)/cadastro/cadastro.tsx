@@ -6,6 +6,7 @@ import CardItem from "../../../components/CardItem";
 import { router } from "expo-router";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import CommonLayout from "@/components/Layout/CommonLayout";
+import { Avatar } from "react-native-paper";
 
 export default function Cadastro() {
   const { sectors } = useCadastroPage();
@@ -33,6 +34,19 @@ export default function Cadastro() {
                       }
                       title={`Setor: ${sector.nome}`}
                       subtitle={`Qtd. de baias: ${sector.baias.length}`}
+                      titleInfo3="Checagem"
+                      info3={
+                        <Avatar.Icon
+                          size={32}
+                          icon={sector.missingCheck ? "minus-circle" : "check"}
+                          color="#ffffff"
+                          style={{
+                            backgroundColor: sector.missingCheck
+                              ? "#ff0000"
+                              : "#00ff00",
+                          }}
+                        />
+                      }
                     />
                   </TouchableOpacity>
                 </GestureHandlerRootView>
