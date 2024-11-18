@@ -9,16 +9,31 @@ import CommonLayout from "@/components/Layout/CommonLayout";
 import { checkAnimal } from "@/repository/animal.repository";
 import { useEffect, useState } from "react";
 import { getLastCheck } from "@/repository/check.repository";
+import { AnimalType } from "@/types/enum/animal/AnimalTypeEnum";
+import { getDogImage } from "@/repository/externalApi/theDog.repository";
+import { getCatchImage } from "@/repository/externalApi/theCats.repository";
 
 const AnimalPage = () => {
-  const image = require("@/assets/images/dog.jpg");
-
   const [isSwitchOn, setIsSwitchOn] = useState(false);
   const [lastCheck, setLastCheck] = useState("");
+  const [image, setImage] = useState("");
 
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
   const { animal } = useAnimalPage();
+
+  useEffect(() => {
+    async function getImage() {
+      if (animal?.tipo === AnimalType.Dog) {
+        const dogImage = await getDogImage();
+        setImage(dogImage);
+      } else {
+        const catImage = await getCatchImage();
+        setImage(catImage);
+      }
+    }
+    getImage();
+  }, [animal]);
 
   useEffect(() => {
     if (animal) {
@@ -49,7 +64,7 @@ const AnimalPage = () => {
     <CommonLayout>
       <S.AnimalContainer>
         <S.AvatarTitle>
-          <Avatar.Image source={image} size={250} />
+          <Avatar.Image source={{ uri: image }} size={250} />
           <Text variant="displayMedium">{animal.nome}</Text>
         </S.AvatarTitle>
         <S.ContentInfo>
