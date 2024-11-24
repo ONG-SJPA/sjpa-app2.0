@@ -29,3 +29,9 @@ export const CardContainer = styled(Card.Content)`
   border-radius: 15px 5px;
   padding: 10px;
 `;
+
+export const ViewLoading = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

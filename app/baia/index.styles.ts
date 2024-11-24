@@ -37,3 +37,9 @@ export const AvatarText = styled(Avatar.Text)<AvatarTextProps>`
   border-color: #00000037;
   color: #000000;
 `;
+
+export const ViewLoading = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

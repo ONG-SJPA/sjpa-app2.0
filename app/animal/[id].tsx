@@ -1,7 +1,6 @@
-import { Avatar, Switch, Text } from "react-native-paper";
+import { ActivityIndicator, Avatar, Switch, Text } from "react-native-paper";
 import * as S from "./index.styles";
 import { useAnimalPage } from "./hooks/useAnimalPage";
-import { View } from "@/components/Themed";
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { checkAnimal } from "@/repository/animal.repository";
 import { useCallback, useState } from "react";
@@ -58,9 +57,11 @@ const AnimalPage = () => {
 
   if (!animal) {
     return (
-      <View>
-        <Text>Carregando...</Text>
-      </View>
+      <CommonLayout>
+        <S.ViewLoading>
+          <ActivityIndicator animating={true} size="large" color="#FFFFFF" />
+        </S.ViewLoading>
+      </CommonLayout>
     );
   }
 

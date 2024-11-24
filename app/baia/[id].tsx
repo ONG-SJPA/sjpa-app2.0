@@ -7,7 +7,7 @@ import CardItem from "@/components/CardItem";
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { CheckDTO } from "@/types/dto/check/CheckDTO";
 import { getLastCheck } from "@/repository/check.repository";
-import { Avatar } from "react-native-paper";
+import { ActivityIndicator, Avatar } from "react-native-paper";
 import { useFocusEffect } from "@react-navigation/native";
 
 const BaiaPage = () => {
@@ -30,11 +30,13 @@ const BaiaPage = () => {
     baiaId: id,
   });
 
-  if (!baiaData) {
+  if (!baiaData || !animais) {
     return (
-      <View>
-        <Text>Carregando...</Text>
-      </View>
+      <CommonLayout>
+        <S.ViewLoading>
+          <ActivityIndicator animating={true} size="large" color="#FFFFFF" />
+        </S.ViewLoading>
+      </CommonLayout>
     );
   }
 
