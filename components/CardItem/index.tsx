@@ -5,8 +5,8 @@ import React, { ReactNode } from "react";
 import * as S from "./index.styles";
 
 function shortenString(input: string): string {
-  if (input.length > 15) {
-    return input.substring(0, 10) + "...";
+  if (input.length > 30) {
+    return input.substring(0, 25) + "...";
   }
   return input;
 }
@@ -29,12 +29,10 @@ function CardItem({
   subtitle,
   rightComponent,
   iconButon,
-  titleInfo = "Info?",
-  info = "Teste info",
-  titleInfo2 = "Info 2?",
-  info2 = "Teste info2",
-  titleInfo3 = "Info 3?",
-  info3 = "Teste info3",
+  titleInfo2 = "",
+  info2 = "",
+  titleInfo3 = "",
+  info3 = "",
 }: CardItemSectorProps) {
   return (
     <S.MainContainer>
@@ -51,22 +49,11 @@ function CardItem({
             </S.ViewTitlesContainer>
             <View>{iconButon}</View>
           </S.ViewContentContainer>
-
           <S.ViewInformationContainer>
-            <S.ViewInformation>
-              <S.BorderRightInformationText>
-                {titleInfo}
-              </S.BorderRightInformationText>
-              <S.ItemInformation>
-                <S.BorderRightInformationText>
-                  {shortenString(info)}
-                </S.BorderRightInformationText>
-              </S.ItemInformation>
-            </S.ViewInformation>
-            <S.ViewInformation>
+            <S.ViewFirstInformation>
               <Text>{titleInfo2}</Text>
               <S.ItemInformation>{shortenString(info2)}</S.ItemInformation>
-            </S.ViewInformation>
+            </S.ViewFirstInformation>
             <S.ViewInformation>
               <Text>{titleInfo3}</Text>
               <S.ItemInformation>{info3}</S.ItemInformation>

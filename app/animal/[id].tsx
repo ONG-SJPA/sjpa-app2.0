@@ -1,17 +1,15 @@
-import { useLocalSearchParams } from "expo-router";
-import { SafeAreaView } from "react-native";
-import { Avatar, Card, Switch, Text } from "react-native-paper";
+import { Avatar, Switch, Text } from "react-native-paper";
 import * as S from "./index.styles";
-import { LinearGradient } from "expo-linear-gradient";
 import { useAnimalPage } from "./hooks/useAnimalPage";
 import { View } from "@/components/Themed";
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { checkAnimal } from "@/repository/animal.repository";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { getLastCheck } from "@/repository/check.repository";
 import { AnimalType } from "@/types/enum/animal/AnimalTypeEnum";
 import { getDogImage } from "@/repository/externalApi/theDog.repository";
 import { getCatchImage } from "@/repository/externalApi/theCats.repository";
+import { useFocusEffect } from "@react-navigation/native";
 
 const AnimalPage = () => {
   const [isSwitchOn, setIsSwitchOn] = useState(false);
@@ -22,35 +20,41 @@ const AnimalPage = () => {
 
   const { animal } = useAnimalPage();
 
-  useEffect(() => {
-    async function getImage() {
-      if (animal?.tipo === AnimalType.Dog) {
-        const dogImage = await getDogImage();
-        setImage(dogImage);
-      } else {
-        const catImage = await getCatchImage();
-        setImage(catImage);
+  useFocusEffect(
+    useCallback(() => {
+      async function getImage() {
+        if (animal?.tipo === AnimalType.Dog) {
+          const dogImage = await getDogImage();
+          setImage(dogImage);
+        } else {
+          const catImage = await getCatchImage();
+          setImage(catImage);
+        }
       }
-    }
-    getImage();
-  }, [animal]);
+      getImage();
+    }, [animal]),
+  );
 
-  useEffect(() => {
-    if (animal) {
-      checkAnimal(animal.id, isSwitchOn);
-    }
-  }, [isSwitchOn]);
-
-  useEffect(() => {
-    async function getLastCheckAndVerify() {
-      const lastCheck = await getLastCheck();
-      setIsSwitchOn(lastCheck ? animal?.lastCheck === lastCheck?.id : false);
-      if (lastCheck) {
-        setLastCheck(lastCheck.check.toDate().toLocaleDateString());
+  useFocusEffect(
+    useCallback(() => {
+      if (animal) {
+        checkAnimal(animal.id, isSwitchOn);
       }
-    }
-    getLastCheckAndVerify();
-  }, [animal]);
+    }, [isSwitchOn]),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      async function getLastCheckAndVerify() {
+        const lastCheck = await getLastCheck();
+        setIsSwitchOn(lastCheck ? animal?.lastCheck === lastCheck?.id : false);
+        if (lastCheck) {
+          setLastCheck(lastCheck.check.toDate().toLocaleDateString());
+        }
+      }
+      getLastCheckAndVerify();
+    }, [animal]),
+  );
 
   if (!animal) {
     return (

@@ -40,11 +40,20 @@ export const TitleCard = styled(Title)<TitleProps>`
 `;
 
 export const ViewInformationContainer = styled.View`
+  width: 78%;
+align-self: flex-end;
+  background-color: #dc143c;
   flex-direction: row;
   justify-content: space-between;
   background-color: transparent;
   margin-top: 10px;
 `;
+
+export const ViewFirstInformation = styled.View`
+  align-items: start;
+  background-color: transparent;
+`;
+
 
 export const ViewInformation = styled.View`
   align-items: center;

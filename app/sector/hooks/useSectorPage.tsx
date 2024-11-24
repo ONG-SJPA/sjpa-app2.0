@@ -5,7 +5,7 @@ import { BaiaDTO } from "@/types/dto/baia/BaiaDTO";
 import { SectorDTO } from "@/types/dto/setor/SectorDTO";
 import { useFocusEffect } from "@react-navigation/native";
 import { useLocalSearchParams } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 export const useSectorPage = () => {
   const params = useLocalSearchParams<{ id: string }>();

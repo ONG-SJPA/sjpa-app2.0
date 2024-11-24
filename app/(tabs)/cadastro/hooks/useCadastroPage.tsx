@@ -2,7 +2,7 @@ import firebase from "@/firebase/initializer";
 import { getAllSectors } from "@/repository/setor.repository";
 import { SectorDTO } from "@/types/dto/setor/SectorDTO";
 import { useFocusEffect } from "@react-navigation/native";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 export const useCadastroPage = () => {
   const [sectors, setSectors] = useState<SectorDTO[]>([]);

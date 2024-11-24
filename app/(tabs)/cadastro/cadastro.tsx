@@ -34,6 +34,8 @@ export default function Cadastro() {
                       }
                       title={`Setor: ${sector.nome}`}
                       subtitle={`Qtd. de baias: ${sector.baias.length}`}
+                      titleInfo2="Observações"
+                      info2={sector.observacao}
                       titleInfo3="Checagem"
                       info3={
                         <Avatar.Icon

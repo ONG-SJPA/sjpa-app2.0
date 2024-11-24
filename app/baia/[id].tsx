@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useBaiaPage } from "./hooks/useBaiaPage";
@@ -8,6 +8,7 @@ import CommonLayout from "@/components/Layout/CommonLayout";
 import { CheckDTO } from "@/types/dto/check/CheckDTO";
 import { getLastCheck } from "@/repository/check.repository";
 import { Avatar } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
 
 const BaiaPage = () => {
   const params = useLocalSearchParams<{ id: string }>();
@@ -15,13 +16,15 @@ const BaiaPage = () => {
 
   const [lastCheck, setLastCheck] = useState<CheckDTO | null>();
 
-  useEffect(() => {
-    async function getLastCheckAndVerify() {
-      const lastCheck = await getLastCheck();
-      setLastCheck(lastCheck);
-    }
-    getLastCheckAndVerify();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      async function getLastCheckAndVerify() {
+        const lastCheck = await getLastCheck();
+        setLastCheck(lastCheck);
+      }
+      getLastCheckAndVerify();
+    }, []),
+  );
 
   const { baia: baiaData, animais } = useBaiaPage({
     baiaId: id,

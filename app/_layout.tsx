@@ -3,17 +3,18 @@ import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
+  useFocusEffect,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { router, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useState } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import { Icon, IconButton, Text } from "react-native-paper";
 import CommonMenu from "@/components/Menu";
 import { getBaiaById } from "@/repository/baia.repository";
+import { useCallback } from "react";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -29,15 +30,17 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+  useFocusEffect(
+    useCallback(() => {
+      if (error) throw error;
+    }, [error]),
+  );
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+  useFocusEffect(
+    useCallback(() => {
+      if (loaded) SplashScreen.hideAsync();
+    }, [loaded]),
+  );
 
   if (!loaded) {
     return null;

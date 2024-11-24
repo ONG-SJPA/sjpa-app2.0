@@ -43,6 +43,8 @@ const SectorPage = () => {
                     }
                     title={`Baia: ${x.numeroBaia}`}
                     subtitle={`Qtd. de animais: ${x.animais.length}`}
+                    titleInfo2="Observação"
+                    info2={x.observacao}
                     titleInfo3="Checagem"
                     info3={
                       <Avatar.Icon

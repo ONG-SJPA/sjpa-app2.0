@@ -1,7 +1,7 @@
 import { getAnimalById } from "@/repository/animal.repository";
 import { AnimalDTO } from "@/types/dto/animal/AnimalDTO";
 import { useFocusEffect, useLocalSearchParams } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 export const useAnimalPage = () => {
   const params = useLocalSearchParams<{ id: string }>();
