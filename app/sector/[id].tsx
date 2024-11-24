@@ -11,11 +11,23 @@ import { ActivityIndicator, Avatar } from "react-native-paper";
 const SectorPage = () => {
   const { sector, baias } = useSectorPage();
 
-  if (!sector || !baias || sector.baias.length == 0) {
+  if (!sector || !baias) {
     return (
       <CommonLayout>
         <S.ViewLoading>
           <ActivityIndicator animating={true} size="large" color="#FFFFFF" />
+        </S.ViewLoading>
+      </CommonLayout>
+    );
+  }
+
+  if (sector.baias.length == 0) {
+    return (
+      <CommonLayout>
+        <S.ViewLoading>
+          <Text style={{ fontSize: 20, color: "#FFFFFF" }}>
+            Nenhuma baia encontrada
+          </Text>
         </S.ViewLoading>
       </CommonLayout>
     );

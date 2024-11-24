@@ -2,13 +2,15 @@ import { ActivityIndicator, Avatar, Switch, Text } from "react-native-paper";
 import * as S from "./index.styles";
 import { useAnimalPage } from "./hooks/useAnimalPage";
 import CommonLayout from "@/components/Layout/CommonLayout";
-import { checkAnimal } from "@/repository/animal.repository";
+import { checkAnimal, deleteAnimal } from "@/repository/animal.repository";
 import { useCallback, useState } from "react";
 import { getLastCheck } from "@/repository/check.repository";
 import { AnimalType } from "@/types/enum/animal/AnimalTypeEnum";
 import { getDogImage } from "@/repository/externalApi/theDog.repository";
 import { getCatchImage } from "@/repository/externalApi/theCats.repository";
 import { useFocusEffect } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { router, useLocalSearchParams } from "expo-router";
 
 const AnimalPage = () => {
   const [isSwitchOn, setIsSwitchOn] = useState(false);
@@ -65,6 +67,17 @@ const AnimalPage = () => {
     );
   }
 
+  const onSubmit = async () => {
+    console.log("edsasdasd");
+    await deleteAnimal({
+      id: animal.id,
+      idBaia: animal.idBaia,
+      idSetor: animal.idSetor,
+    });
+    // router.push(`/animal/${id}`);
+    router.back();
+  };
+
   return (
     <CommonLayout>
       <S.AnimalContainer>
@@ -104,6 +117,17 @@ const AnimalPage = () => {
             </Text>
           </S.CardContainer>
         </S.ContentInfo>
+        <S.ViewButton
+          labelStyle={{
+            color: "#ff0000",
+            fontSize: 16,
+            fontWeight: "bold",
+          }}
+          icon={() => <Icon name="delete" size={22} color={"#ff0000"} />}
+          onPress={onSubmit}
+        >
+          Deletar
+        </S.ViewButton>
       </S.AnimalContainer>
     </CommonLayout>
   );

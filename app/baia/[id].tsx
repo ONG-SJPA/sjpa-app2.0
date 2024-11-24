@@ -40,6 +40,18 @@ const BaiaPage = () => {
     );
   }
 
+  if (baiaData.animais.length == 0) {
+    return (
+      <CommonLayout>
+        <S.ViewLoading>
+          <Text style={{ fontSize: 20, color: "#FFFFFF" }}>
+            Nenhum animal encontrado
+          </Text>
+        </S.ViewLoading>
+      </CommonLayout>
+    );
+  }
+
   return (
     <CommonLayout>
       <S.ViewList>

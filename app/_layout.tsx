@@ -90,7 +90,7 @@ function RootLayoutNav() {
                       <Text
                         style={{ fontSize: 18, marginLeft: 8 }}
                         onPress={() => {
-                          router.push({
+                          router.replace({
                             pathname: "/baia/create",
                             params: { sector: id },
                           });
@@ -110,7 +110,7 @@ function RootLayoutNav() {
                       <Icon source="pencil" size={18} />
                       <Text
                         onPress={() => {
-                          router.push(`/sector/edit/${id}`);
+                          router.replace(`/sector/edit/${id}`);
                         }}
                         style={{ fontSize: 18, marginLeft: 8 }}
                       >
@@ -137,12 +137,20 @@ function RootLayoutNav() {
           options={({ route }) => {
             const { id } = route.params as AnimalParams;
             return {
-              title: "",
+              title: "asdasd",
+              headerLeft: () => (
+                <IconButton
+                  icon="arrow-left"
+                  onPress={() => {
+                    router.back();
+                  }}
+                />
+              ),
               headerRight: () => (
                 <IconButton
                   icon="pencil"
                   onPress={() => {
-                    router.push(`/animal/edit/${id}`);
+                    router.replace(`/animal/edit/${id}`);
                   }}
                 />
               ),
@@ -204,13 +212,23 @@ function RootLayoutNav() {
         />
         <Stack.Screen
           name="animal/create"
-          options={{ title: "Cadastro de animal" }}
+          options={{
+            title: "Cadastro de animal",
+            headerLeft: () => (
+              <IconButton
+                icon="arrow-left"
+                onPress={() => {
+                  router.back();
+                }}
+              />
+            ),
+          }}
         />
         <Stack.Screen
           name="baia/edit/[id]"
           options={({ route }) => {
             const { id } = route.params as BaiaParams;
-            return { title: `Editar Baia ${id}` };
+            return { title: `Editar Baia` };
           }}
         />
         <Stack.Screen

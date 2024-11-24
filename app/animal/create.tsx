@@ -47,7 +47,8 @@ const CreateAnimal: React.FC = () => {
       idBaia,
       idSetor: baiaData.idSetor,
     });
-    router.push(`/baia/${idBaia}`);
+    router.back();
+    // router.push(`/baia/${idBaia}`);
   };
 
   return (

@@ -41,7 +41,7 @@ const EditSector = () => {
       observacao: data.description,
       id: sector?.id ?? "",
     });
-    router.push("/cadastro/cadastro");
+    router.replace("/cadastro/cadastro");
   };
 
   return (

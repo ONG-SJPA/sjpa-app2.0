@@ -1,4 +1,4 @@
-import { Card } from "react-native-paper";
+import { Button, ButtonProps, Card } from "react-native-paper";
 import styled from "styled-components/native";
 
 export const AnimalContainer = styled.View`
@@ -35,3 +35,15 @@ export const ViewLoading = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+export const ViewButton = styled(Button)<ButtonProps>`
+  margin: 10px;
+  margin-top: 10px;
+  border-radius: 25px;
+  height: 48px;
+  justify-content: center;
+  color: #000;
+  background-color: #f0ffff;
+  width: 100%
+  
+  `

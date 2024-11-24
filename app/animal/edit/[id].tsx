@@ -47,7 +47,8 @@ const EditAnimal: React.FC = () => {
       raca: data.raca,
       observacao: data.observacao,
     });
-    router.push(`/animal/${id}`);
+    // router.push(`/animal/${id}`);
+    router.back();
   };
 
   return (

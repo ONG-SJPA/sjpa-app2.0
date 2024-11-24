@@ -3,6 +3,7 @@ import { AnimalCreateDTO } from "@/types/dto/animal/AnimalCreateDTO";
 import { AnimalDTO } from "@/types/dto/animal/AnimalDTO";
 import { getBaiaById } from "./baia.repository";
 import { AnimalEditDTO } from "@/types/dto/animal/AnimalEditDTO";
+import { AnimalDeleteDTO } from "@/types/dto/animal/AnimalDeleteDto";
 
 export async function missingSomeCheck(idCheck: string): Promise<boolean> {
   const animals = await firebase
@@ -86,6 +87,20 @@ export async function updateAnimal(animal: AnimalEditDTO): Promise<void> {
     observacao: animal.observacao,
   });
 }
+
+export async function deleteAnimal(animal: AnimalDeleteDTO): Promise<void> {
+  const baia = await getBaiaById(animal.idBaia);
+  
+  const animalRef = firebase.firestore().collection("animais").doc(animal.id);
+  await animalRef.delete()
+
+  const baiaRef = firebase.firestore().collection("baias").doc(baia?.id);
+
+  await baiaRef.update({
+    animais: firebase.firestore.FieldValue.arrayRemove(animalRef),
+  });
+}
+
 
 export const checkAnimal = async (idAnimal: string, check: boolean) => {
   const animalRef = firebase.firestore().collection("animais").doc(idAnimal);
