@@ -46,7 +46,8 @@ const CreateBay: React.FC = () => {
       setorCode: sector,
       observacao: data.observacao,
     });
-    router.push(`/sector/${sector}`);
+    router.back();
+    // router.push(`/sector/${sector}`);
   };
 
   return (

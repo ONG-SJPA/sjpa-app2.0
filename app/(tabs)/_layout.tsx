@@ -4,6 +4,7 @@ import { router, Tabs } from "expo-router";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { Icon, IconButton, Text } from "react-native-paper";
 import CommonMenu from "@/components/Menu";
+import { View } from "react-native";
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
@@ -34,14 +35,22 @@ export default function TabLayout() {
           headerRight: () => (
             <CommonMenu
               option1={
-                <Text
-                  onPress={() => {
-                    router.push("/sector/create");
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
                   }}
                 >
                   <Icon source="plus" size={24} />
-                  Cadastrar
-                </Text>
+                  <Text
+                    style={{ fontSize: 18, marginLeft: 8 }}
+                    onPress={() => {
+                      router.push("/sector/create");
+                    }}
+                  >
+                    Cadastrar
+                  </Text>
+                </View>
               }
             />
           ),

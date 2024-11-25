@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import { useBaiaPage } from "./hooks/useBaiaPage";
@@ -7,7 +7,8 @@ import CardItem from "@/components/CardItem";
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { CheckDTO } from "@/types/dto/check/CheckDTO";
 import { getLastCheck } from "@/repository/check.repository";
-import { Avatar } from "react-native-paper";
+import { ActivityIndicator, Avatar } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
 
 const BaiaPage = () => {
   const params = useLocalSearchParams<{ id: string }>();
@@ -15,23 +16,39 @@ const BaiaPage = () => {
 
   const [lastCheck, setLastCheck] = useState<CheckDTO | null>();
 
-  useEffect(() => {
-    async function getLastCheckAndVerify() {
-      const lastCheck = await getLastCheck();
-      setLastCheck(lastCheck);
-    }
-    getLastCheckAndVerify();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      async function getLastCheckAndVerify() {
+        const lastCheck = await getLastCheck();
+        setLastCheck(lastCheck);
+      }
+      getLastCheckAndVerify();
+    }, []),
+  );
 
   const { baia: baiaData, animais } = useBaiaPage({
     baiaId: id,
   });
 
-  if (!baiaData) {
+  if (!baiaData || !animais) {
     return (
-      <View>
-        <Text>Carregando...</Text>
-      </View>
+      <CommonLayout>
+        <S.ViewLoading>
+          <ActivityIndicator animating={true} size="large" color="#FFFFFF" />
+        </S.ViewLoading>
+      </CommonLayout>
+    );
+  }
+
+  if (baiaData.animais.length == 0) {
+    return (
+      <CommonLayout>
+        <S.ViewLoading>
+          <Text style={{ fontSize: 20, color: "#FFFFFF" }}>
+            Nenhum animal encontrado
+          </Text>
+        </S.ViewLoading>
+      </CommonLayout>
     );
   }
 

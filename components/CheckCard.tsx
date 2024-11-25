@@ -1,8 +1,9 @@
 import { CheckDTO } from "@/types/dto/check/CheckDTO";
 import { Avatar, IconButton } from "react-native-paper";
 import * as S from "../app/(tabs)/conference/index.styles";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { missingSomeCheck } from "@/repository/animal.repository";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function CheckCard({
   check,
@@ -13,15 +14,17 @@ export default function CheckCard({
 }) {
   const [isMissingSomeAnimal, setIsMissingSomeAnimal] = useState(false);
 
-  useEffect(() => {
-    if (isPast) {
-      setIsMissingSomeAnimal(false);
-    } else {
-      missingSomeCheck(check.id).then((isMissingSomeAnimal) => {
-        setIsMissingSomeAnimal(isMissingSomeAnimal);
-      });
-    }
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      if (isPast) {
+        setIsMissingSomeAnimal(false);
+      } else {
+        missingSomeCheck(check.id).then((isMissingSomeAnimal) => {
+          setIsMissingSomeAnimal(isMissingSomeAnimal);
+        });
+      }
+    }, []),
+  );
 
   return (
     <S.ViewCardContainer
@@ -36,9 +39,6 @@ export default function CheckCard({
             backgroundColor: isMissingSomeAnimal ? "#ff0000" : "#00ff00",
           }}
         />
-      )}
-      right={(props: any) => (
-        <IconButton {...props} icon="dots-vertical" onPress={() => {}} />
       )}
     />
   );

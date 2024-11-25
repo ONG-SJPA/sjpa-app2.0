@@ -1,6 +1,4 @@
-import { SectorDTO } from "@/types/dto/setor/SectorDTO";
-import { useCallback, useEffect, useState } from "react";
-import data from "@/mockData/data.json";
+import { useCallback, useState } from "react";
 import { getBaiaById } from "@/repository/baia.repository";
 import { AnimalDTO } from "@/types/dto/animal/AnimalDTO";
 import { getAnimalsByBaiaId } from "@/repository/animal.repository";

@@ -28,7 +28,7 @@ const CreateSector = () => {
       nome: data.name,
       observacao: data.description,
     });
-    router.push("/cadastro/cadastro");
+    router.replace("/cadastro/cadastro");
   };
 
   return (

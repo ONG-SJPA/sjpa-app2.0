@@ -3,17 +3,19 @@ import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
+  useFocusEffect,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { router, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect, useState } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import { Icon, IconButton, Text } from "react-native-paper";
 import CommonMenu from "@/components/Menu";
 import { getBaiaById } from "@/repository/baia.repository";
+import { useCallback } from "react";
+import { View } from "react-native";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -29,15 +31,17 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+  useFocusEffect(
+    useCallback(() => {
+      if (error) throw error;
+    }, [error]),
+  );
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+  useFocusEffect(
+    useCallback(() => {
+      if (loaded) SplashScreen.hideAsync();
+    }, [loaded]),
+  );
 
   if (!loaded) {
     return null;
@@ -76,27 +80,43 @@ function RootLayoutNav() {
               headerRight: () => (
                 <CommonMenu
                   option1={
-                    <Text
-                      onPress={() => {
-                        router.push({
-                          pathname: "/baia/create",
-                          params: { sector: id },
-                        });
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
                       }}
                     >
                       <Icon source="plus" size={20} />
-                      Cadastrar Baia
-                    </Text>
+                      <Text
+                        style={{ fontSize: 18, marginLeft: 8 }}
+                        onPress={() => {
+                          router.replace({
+                            pathname: "/baia/create",
+                            params: { sector: id },
+                          });
+                        }}
+                      >
+                        Cadastrar Baia
+                      </Text>
+                    </View>
                   }
                   option2={
-                    <Text
-                      onPress={() => {
-                        router.push(`/sector/edit/${id}`);
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
                       }}
                     >
                       <Icon source="pencil" size={18} />
-                      Editar Setor
-                    </Text>
+                      <Text
+                        onPress={() => {
+                          router.replace(`/sector/edit/${id}`);
+                        }}
+                        style={{ fontSize: 18, marginLeft: 8 }}
+                      >
+                        Editar Setor
+                      </Text>
+                    </View>
                   }
                 />
               ),
@@ -117,12 +137,20 @@ function RootLayoutNav() {
           options={({ route }) => {
             const { id } = route.params as AnimalParams;
             return {
-              title: "",
+              title: "asdasd",
+              headerLeft: () => (
+                <IconButton
+                  icon="arrow-left"
+                  onPress={() => {
+                    router.back();
+                  }}
+                />
+              ),
               headerRight: () => (
                 <IconButton
                   icon="pencil"
                   onPress={() => {
-                    router.push(`/animal/edit/${id}`);
+                    router.replace(`/animal/edit/${id}`);
                   }}
                 />
               ),
@@ -139,27 +167,43 @@ function RootLayoutNav() {
               headerRight: () => (
                 <CommonMenu
                   option1={
-                    <Text
-                      onPress={() => {
-                        router.push({
-                          pathname: "/animal/create",
-                          params: { idBaia: id },
-                        });
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
                       }}
                     >
                       <Icon source="plus" size={20} />
-                      Adicionar Animais
-                    </Text>
+                      <Text
+                        style={{ fontSize: 18, marginLeft: 8 }}
+                        onPress={() => {
+                          router.push({
+                            pathname: "/animal/create",
+                            params: { idBaia: id },
+                          });
+                        }}
+                      >
+                        Adicionar Animais
+                      </Text>
+                    </View>
                   }
                   option2={
-                    <Text
-                      onPress={() => {
-                        router.push(`/baia/edit/${id}`);
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
                       }}
                     >
                       <Icon source="pencil" size={18} />
-                      Editar Baia
-                    </Text>
+                      <Text
+                        style={{ fontSize: 18, marginLeft: 8 }}
+                        onPress={() => {
+                          router.push(`/baia/edit/${id}`);
+                        }}
+                      >
+                        Editar Baia
+                      </Text>
+                    </View>
                   }
                 />
               ),
@@ -168,13 +212,23 @@ function RootLayoutNav() {
         />
         <Stack.Screen
           name="animal/create"
-          options={{ title: "Cadastro de animal" }}
+          options={{
+            title: "Cadastro de animal",
+            headerLeft: () => (
+              <IconButton
+                icon="arrow-left"
+                onPress={() => {
+                  router.back();
+                }}
+              />
+            ),
+          }}
         />
         <Stack.Screen
           name="baia/edit/[id]"
           options={({ route }) => {
             const { id } = route.params as BaiaParams;
-            return { title: `Editar Baia ${id}` };
+            return { title: `Editar Baia` };
           }}
         />
         <Stack.Screen

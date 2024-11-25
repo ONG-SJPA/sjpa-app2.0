@@ -9,23 +9,39 @@ interface OwnProps {
 }
 
 const CommonMenu = ({ option1, option2 }: OwnProps) => {
-  const [showPopover, setShowPopover] = React.useState(false);
-  const touchableRef = React.useRef<TouchableOpacity | null>(null);
+  const [showPopover, setShowPopover] = useState(false);
+  const touchableRef = useRef<TouchableOpacity | null>(null);
 
   return (
     <View style={styles.container}>
       <TouchableOpacity ref={touchableRef} onPress={() => setShowPopover(true)}>
-        <IconButton icon="menu" iconColor="#000000" size={24} />
+        <IconButton icon="menu" iconColor="#000" size={28} />
       </TouchableOpacity>
 
       <Popover
         isVisible={showPopover}
         from={touchableRef}
         onRequestClose={() => setShowPopover(false)}
+        popoverStyle={styles.popover}
       >
         <View style={styles.popoverContent}>
-          {option1}
-          {option2 && option2}
+          <TouchableOpacity
+            onPress={() => setShowPopover(false)}
+            style={styles.menuItem}
+          >
+            <Text style={styles.menuText}>{option1}</Text>
+          </TouchableOpacity>
+
+          {option2 && <View style={styles.divider} />}
+
+          {option2 && (
+            <TouchableOpacity
+              onPress={() => setShowPopover(false)}
+              style={styles.menuItem}
+            >
+              <Text style={styles.menuText}>{option2}</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </Popover>
     </View>
@@ -34,28 +50,38 @@ const CommonMenu = ({ option1, option2 }: OwnProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    position: "absolute",
+    zIndex: 10,
   },
-  button: {
-    padding: 10,
-    backgroundColor: "#007bff",
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
+  popover: {
+    borderRadius: 8,
+    backgroundColor: "#f9f9f9",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+    width: 220,
   },
   popoverContent: {
-    padding: 10,
-    backgroundColor: "#fff",
-    borderRadius: 5,
-    width: 170,
+    paddingVertical: 10,
+    paddingHorizontal: 5,
   },
   menuItem: {
-    padding: 8,
-    fontSize: 14,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+  },
+  menuText: {
+    fontSize: 16,
+    color: "#333",
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "#ccc",
+    marginVertical: 5,
+    marginHorizontal: 10,
   },
 });
 

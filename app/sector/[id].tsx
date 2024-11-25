@@ -1,16 +1,37 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { useLocalSearchParams } from "expo-router";
 import { useSectorPage } from "./hooks/useSectorPage";
 import { router } from "expo-router";
 import { AnimalType } from "@/types/enum/animal/AnimalTypeEnum";
 import CardItem from "@/components/CardItem";
 import CommonLayout from "@/components/Layout/CommonLayout";
 import * as S from "./index.styles";
-import { Avatar } from "react-native-paper";
+import { ActivityIndicator, Avatar } from "react-native-paper";
 
 const SectorPage = () => {
   const { sector, baias } = useSectorPage();
+
+  if (!sector || !baias) {
+    return (
+      <CommonLayout>
+        <S.ViewLoading>
+          <ActivityIndicator animating={true} size="large" color="#FFFFFF" />
+        </S.ViewLoading>
+      </CommonLayout>
+    );
+  }
+
+  if (sector.baias.length == 0) {
+    return (
+      <CommonLayout>
+        <S.ViewLoading>
+          <Text style={{ fontSize: 20, color: "#FFFFFF" }}>
+            Nenhuma baia encontrada
+          </Text>
+        </S.ViewLoading>
+      </CommonLayout>
+    );
+  }
 
   return (
     <CommonLayout>
@@ -43,6 +64,8 @@ const SectorPage = () => {
                     }
                     title={`Baia: ${x.numeroBaia}`}
                     subtitle={`Qtd. de animais: ${x.animais.length}`}
+                    titleInfo2="Observação"
+                    info2={x.observacao}
                     titleInfo3="Checagem"
                     info3={
                       <Avatar.Icon

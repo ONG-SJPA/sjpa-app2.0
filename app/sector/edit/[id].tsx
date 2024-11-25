@@ -3,9 +3,10 @@ import { router } from "expo-router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Button, HelperText, TextInput, Title } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
-import React from "react";
+import React, { useCallback } from "react";
 import { useEditSectorsPage } from "./useEditSectorsPage";
 import { updateSector } from "@/repository/setor.repository";
+import { useFocusEffect } from "@react-navigation/native";
 
 interface FormData {
   name: string;
@@ -27,10 +28,12 @@ const EditSector = () => {
     },
   });
 
-  React.useEffect(() => {
-    setValue("name", sector?.nome ?? "");
-    setValue("description", sector?.observacao ?? "");
-  }, [sector]);
+  useFocusEffect(
+    useCallback(() => {
+      setValue("name", sector?.nome ?? "");
+      setValue("description", sector?.observacao ?? "");
+    }, [sector]),
+  );
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     await updateSector({
@@ -38,7 +41,7 @@ const EditSector = () => {
       observacao: data.description,
       id: sector?.id ?? "",
     });
-    router.push("/cadastro/cadastro");
+    router.replace("/cadastro/cadastro");
   };
 
   return (
