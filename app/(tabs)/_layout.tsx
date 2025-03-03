@@ -1,8 +1,10 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Tabs } from "expo-router";
+import { router, Tabs } from "expo-router";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
-import { IconButton } from "react-native-paper";
+import { Icon, IconButton, Text } from "react-native-paper";
+import CommonMenu from "@/components/Menu";
+import { View } from "react-native";
 
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
@@ -31,15 +33,29 @@ export default function TabLayout() {
         options={{
           title: "Setores",
           headerRight: () => (
-            <IconButton
-              icon="plus"
-              onPress={() => {
-                console.log("clicou");
-              }}
+            <CommonMenu
+              option1={
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Icon source="plus" size={24} />
+                  <Text
+                    style={{ fontSize: 18, marginLeft: 8 }}
+                    onPress={() => {
+                      router.push("/sector/create");
+                    }}
+                  >
+                    Cadastrar
+                  </Text>
+                </View>
+              }
             />
           ),
           tabBarAccessibilityLabel: "sdasdasdsd",
-          tabBarLabel: "Cadastro",
+          tabBarLabel: "Animais",
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="archive" color={color} />
           ),
@@ -49,15 +65,7 @@ export default function TabLayout() {
         name="conference/conference"
         options={{
           tabBarItemStyle: { alignContent: "space-around" },
-          title: "Conferência",
-          headerRight: () => (
-            <IconButton
-              icon="plus"
-              onPress={() => {
-                console.log("clicou");
-              }}
-            />
-          ),
+          title: "Checagem",
           tabBarIcon: ({ color }) => <TabBarIcon name="check" color={color} />,
         }}
       />

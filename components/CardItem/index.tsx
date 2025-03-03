@@ -4,11 +4,24 @@ import { Text } from "react-native";
 import React, { ReactNode } from "react";
 import * as S from "./index.styles";
 
+function shortenString(input: string): string {
+  if (input.length > 30) {
+    return input.substring(0, 25) + "...";
+  }
+  return input;
+}
+
 type CardItemSectorProps = {
   title: string;
   subtitle: string;
   rightComponent: ReactNode;
   iconButon?: ReactNode;
+  titleInfo?: string;
+  info?: string;
+  titleInfo2?: string;
+  info2?: string;
+  titleInfo3?: string;
+  info3?: string | ReactNode;
 };
 
 function CardItem({
@@ -16,6 +29,10 @@ function CardItem({
   subtitle,
   rightComponent,
   iconButon,
+  titleInfo2 = "",
+  info2 = "",
+  titleInfo3 = "",
+  info3 = "",
 }: CardItemSectorProps) {
   return (
     <S.MainContainer>
@@ -32,23 +49,14 @@ function CardItem({
             </S.ViewTitlesContainer>
             <View>{iconButon}</View>
           </S.ViewContentContainer>
-
           <S.ViewInformationContainer>
+            <S.ViewFirstInformation>
+              <Text>{titleInfo2}</Text>
+              <S.ItemInformation>{shortenString(info2)}</S.ItemInformation>
+            </S.ViewFirstInformation>
             <S.ViewInformation>
-              <S.BorderRightInformationText>Info?</S.BorderRightInformationText>
-              <S.ItemInformation>
-                <S.BorderRightInformationText>
-                  Teste info
-                </S.BorderRightInformationText>
-              </S.ItemInformation>
-            </S.ViewInformation>
-            <S.ViewInformation>
-              <Text>Info 2?</Text>
-              <S.ItemInformation>Teste info2</S.ItemInformation>
-            </S.ViewInformation>
-            <S.ViewInformation>
-              <Text>Info 3?</Text>
-              <S.ItemInformation>Teste info3</S.ItemInformation>
+              <Text>{titleInfo3}</Text>
+              <S.ItemInformation>{info3}</S.ItemInformation>
             </S.ViewInformation>
           </S.ViewInformationContainer>
         </Card.Content>

@@ -18,3 +18,9 @@ export const AvatarImage = styled(Avatar.Image)<AvatarImageProps>`
   border-color: #00000037;
   background-color: #5fc2bf;
 `;
+
+export const ViewLoading = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

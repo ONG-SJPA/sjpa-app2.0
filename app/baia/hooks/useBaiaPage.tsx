@@ -1,24 +1,43 @@
-import { SectorDTO } from "@/types/dto/animais/SectorDTO";
-import { useEffect, useState } from "react";
-import data from "@/mockData/data.json";
-import { BaiaDTO } from "@/types/dto/animais/CanilDTO";
+import { useCallback, useState } from "react";
+import { getBaiaById } from "@/repository/baia.repository";
+import { AnimalDTO } from "@/types/dto/animal/AnimalDTO";
+import { getAnimalsByBaiaId } from "@/repository/animal.repository";
+import { BaiaDTO } from "@/types/dto/baia/BaiaDTO";
+import { useFocusEffect } from "@react-navigation/native";
 
 interface OwnProps {
-  baiaId: number;
-  sectorCode: string;
+  baiaId: string;
 }
 
-export const useBaiaPage = ({ baiaId, sectorCode }: OwnProps) => {
+export const useBaiaPage = ({ baiaId }: OwnProps) => {
   const [baia, setBaia] = useState<BaiaDTO | null>(null);
+  const [animais, setAnimais] = useState<AnimalDTO[]>([]);
 
-  useEffect(() => {
-    const sctors = data.canil.setores as SectorDTO[];
-    const sectorData: SectorDTO | null =
-      sctors.find((s) => s.setor === sectorCode) ?? null;
-    const baiaData: BaiaDTO | null =
-      sectorData?.baias.find((b) => b.numeroBaia === baiaId) ?? null;
+  const fetchBaia = useCallback(async () => {
+    const baiaData = await getBaiaById(baiaId);
+    const animais = await getAnimalsByBaiaId(baiaId);
     setBaia(baiaData);
-  }, []);
+    setAnimais(animais);
+  }, [baiaId]);
 
-  return { baia };
+  useFocusEffect(
+    useCallback(() => {
+      fetchBaia();
+      return () => {
+        console.log("Saindo da rota");
+      };
+    }, [fetchBaia]),
+  );
+
+  // useEffect(() => {
+  //   async function fetchBaia() {
+  //     const baiaData = await getBaiaById(baiaId);
+  //     const animais = await getAnimalsByBaiaId(baiaId);
+  //     setBaia(baiaData);
+  //     setAnimais(animais);
+  //   }
+  //   fetchBaia();
+  // }, []);
+
+  return { baia, animais };
 };

@@ -1,20 +1,46 @@
-import { SectorDTO } from "@/types/dto/animais/SectorDTO";
-import { useEffect, useState } from "react";
-import data from "@/mockData/data.json";
+import firebase from "@/firebase/initializer";
+import { getBaiasByIdSetor } from "@/repository/baia.repository";
+import { getSectorByCode } from "@/repository/setor.repository";
+import { BaiaDTO } from "@/types/dto/baia/BaiaDTO";
+import { SectorDTO } from "@/types/dto/setor/SectorDTO";
+import { useFocusEffect } from "@react-navigation/native";
+import { useLocalSearchParams } from "expo-router";
+import { useCallback, useState } from "react";
 
-interface OwnProps {
-  sectorCode: string;
-}
+export const useSectorPage = () => {
+  const params = useLocalSearchParams<{ id: string }>();
+  const { id } = params;
 
-export const useSectorPage = ({ sectorCode }: OwnProps) => {
   const [sector, setSector] = useState<SectorDTO | null>(null);
+  const [baias, setBaias] = useState<BaiaDTO[]>([]);
 
-  useEffect(() => {
-    const sctors = data.canil.setores as SectorDTO[];
-    const sectorData: SectorDTO | null =
-      sctors.find((s) => s.setor === sectorCode) ?? null;
-    setSector(sectorData);
-  }, []);
+  const fetchSector = useCallback(async () => {
+    const sector = await getSectorByCode(id);
+    setSector(sector ?? null);
 
-  return { sector };
+    const baias = await getBaiasByIdSetor(sector?.id ?? "");
+    setBaias(baias);
+  }, [id]);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchSector();
+      return () => {
+        console.log("Saindo da rota");
+      };
+    }, [fetchSector]),
+  );
+
+  // useEffect(() => {
+  //   async function fetchSector() {
+  //     const sector = await getSectorByCode(id);
+  //     setSector(sector ?? null);
+
+  //     const baias = await getBaiasByIdSetor(sector?.id ?? "");
+  //     setBaias(baias);
+  //   }
+  //   fetchSector();
+  // }, []);
+
+  return { sector, baias };
 };
