@@ -1,28 +1,42 @@
-import firebase from "@/firebase/initializer";
+import { db } from "@/firebase/initializer";
 import { BaiaDTO } from "@/types/dto/baia/BaiaDTO";
 import { BaiaCreateDTO } from "@/types/dto/baia/BaiaCreateDTO";
 import { BaiaEditDTO } from "@/types/dto/baia/BaiaEditDTO";
 import { getSectorByCode } from "./setor.repository";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+  orderBy,
+  limit,
+  arrayUnion,
+  FieldValue,
+  getDoc,
+} from "firebase/firestore";
 
 export async function getBaiasByIdSetor(idSetor: string): Promise<BaiaDTO[]> {
-  const baias = await firebase
-    .firestore()
-    .collection("baias")
-    .orderBy("numeroBaia", "asc")
-    .get();
+  const baiasCollection = collection(db, "baias");
+  const baiasQuery = query(baiasCollection, orderBy("numeroBaia", "asc"));
+  const baias = await getDocs(baiasQuery);
 
-  const lastCheck = await firebase
-    .firestore()
-    .collection("checks")
-    .orderBy("check", "desc")
-    .limit(1)
-    .get();
+  const checksCollection = collection(db, "checks");
+  const lastCheckQuery = query(
+    checksCollection,
+    orderBy("check", "desc"),
+    limit(1),
+  );
+  const lastCheck = await getDocs(lastCheckQuery);
 
-  const allAnimals = await firebase
-    .firestore()
-    .collection("animais")
-    .where("idSetor", "==", idSetor)
-    .get();
+  const animaisCollection = collection(db, "animais");
+  const allAnimalsQuery = query(
+    animaisCollection,
+    where("idSetor", "==", idSetor),
+  );
+  const allAnimals = await getDocs(allAnimalsQuery);
 
   return baias.docs
     .map((doc) => {
@@ -43,8 +57,9 @@ export async function getBaiasByIdSetor(idSetor: string): Promise<BaiaDTO[]> {
 }
 
 export async function getBaiaById(id: string): Promise<BaiaDTO | null> {
-  const baia = await firebase.firestore().collection("baias").doc(id).get();
-  return baia.exists
+  const baiaDoc = doc(db, "baias", id);
+  const baia = await getDoc(baiaDoc);
+  return baia.exists()
     ? ({
         id: baia.id,
         ...baia.data(),
@@ -53,15 +68,13 @@ export async function getBaiaById(id: string): Promise<BaiaDTO | null> {
 }
 
 export async function createBaia(baia: BaiaCreateDTO): Promise<void> {
-  const firestore = firebase.firestore();
-
   const sector = await getSectorByCode(baia.setorCode);
 
   if (!sector) {
     throw new Error("Setor não encontrado");
   }
 
-  const createdBaiaRef = await firestore.collection("baias").add({
+  const createdBaiaRef = await addDoc(collection(db, "baias"), {
     tipo: baia.tipo,
     numeroBaia: baia.numeroBaia,
     observacao: baia.observacao,
@@ -69,13 +82,16 @@ export async function createBaia(baia: BaiaCreateDTO): Promise<void> {
     animais: [],
   });
 
-  const setorRef = firestore.collection("setores").doc(sector.id);
+  const setorRef = doc(db, "setores", sector.id);
 
-  await setorRef.update({
-    baias: firebase.firestore.FieldValue.arrayUnion(createdBaiaRef),
+  await updateDoc(setorRef, {
+    baias: arrayUnion(createdBaiaRef),
   });
 }
 
 export async function updateBaia(baia: BaiaEditDTO): Promise<void> {
-  await firebase.firestore().collection("baias").doc(baia.id).update(baia);
+  const baiaRef = doc(db, "baias", baia.id);
+  await updateDoc(baiaRef, {
+    ...baia,
+  });
 }

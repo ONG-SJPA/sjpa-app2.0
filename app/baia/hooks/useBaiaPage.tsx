@@ -23,9 +23,7 @@ export const useBaiaPage = ({ baiaId }: OwnProps) => {
   useFocusEffect(
     useCallback(() => {
       fetchBaia();
-      return () => {
-        console.log("Saindo da rota");
-      };
+      return;
     }, [fetchBaia]),
   );
 

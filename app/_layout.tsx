@@ -2,6 +2,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
   DefaultTheme,
+  NavigationContainer,
   ThemeProvider,
   useFocusEffect,
 } from "@react-navigation/native";
@@ -16,6 +17,8 @@ import CommonMenu from "@/components/Menu";
 import { getBaiaById } from "@/repository/baia.repository";
 import { useCallback } from "react";
 import { View } from "react-native";
+import { getSectorByCode, getSectorById } from "@/repository/setor.repository";
+import { AnimalParams, BaiaParams, SectorParams } from "@/types/params";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -26,6 +29,16 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  return (
+    <NavigationContainer>
+      <RootLayoutNav />
+    </NavigationContainer>
+  );
+}
+
+function RootLayoutNav() {
+  const colorScheme = useColorScheme();
+
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
@@ -47,25 +60,6 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
-}
-
-interface SectorParams {
-  id: string;
-}
-
-interface BaiaParams {
-  id: string;
-  numeroBaia: string;
-  idSector: string;
-}
-
-interface AnimalParams {
-  id: string;
-}
-function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
@@ -74,9 +68,9 @@ function RootLayoutNav() {
         <Stack.Screen
           name="sector/[id]"
           options={({ route }) => {
-            const { id } = route.params as SectorParams;
+            const { id, name } = route.params as SectorParams;
             return {
-              title: `Setor ${id}`,
+              title: `Setor ${name}`,
               headerRight: () => (
                 <CommonMenu
                   option1={
@@ -90,9 +84,9 @@ function RootLayoutNav() {
                       <Text
                         style={{ fontSize: 18, marginLeft: 8 }}
                         onPress={() => {
-                          router.replace({
+                          router.push({
                             pathname: "/baia/create",
-                            params: { sector: id },
+                            params: { sector: name, id },
                           });
                         }}
                       >
@@ -110,7 +104,10 @@ function RootLayoutNav() {
                       <Icon source="pencil" size={18} />
                       <Text
                         onPress={() => {
-                          router.replace(`/sector/edit/${id}`);
+                          router.push({
+                            pathname: "/sector/edit/[id]",
+                            params: { id, name },
+                          });
                         }}
                         style={{ fontSize: 18, marginLeft: 8 }}
                       >
@@ -127,8 +124,8 @@ function RootLayoutNav() {
         <Stack.Screen
           name="sector/edit/[id]"
           options={({ route }) => {
-            const { id } = route.params as SectorParams;
-            return { title: `Editar Setor ${id}` };
+            const { id, name } = route.params as SectorParams;
+            return { title: `Editar Setor ${name}` };
           }}
         />
         <Stack.Screen name="baia/create" options={{ title: "Criar Baia" }} />
@@ -137,7 +134,7 @@ function RootLayoutNav() {
           options={({ route }) => {
             const { id } = route.params as AnimalParams;
             return {
-              title: "asdasd",
+              title: "",
               headerLeft: () => (
                 <IconButton
                   icon="arrow-left"
@@ -150,7 +147,7 @@ function RootLayoutNav() {
                 <IconButton
                   icon="pencil"
                   onPress={() => {
-                    router.replace(`/animal/edit/${id}`);
+                    router.push(`/animal/edit/${id}`);
                   }}
                 />
               ),

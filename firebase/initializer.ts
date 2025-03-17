@@ -1,6 +1,6 @@
-import firebase from "firebase";
-// import "@firebase/auth";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDEE6qSM4FIjxN3q1bn8Y_HENEyVQvHUTk",
@@ -12,13 +12,10 @@ const firebaseConfig = {
   appId: "1:552431107911:web:aacfc21a0aadbd5b59d662",
 };
 
-// Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+const app = initializeApp(firebaseConfig);
 
-// firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+const db = getFirestore(app);
 
-// firebase.auth().useDeviceLanguage();
+const auth = getAuth(app);
 
-export default firebase;
+export { app, db, auth };

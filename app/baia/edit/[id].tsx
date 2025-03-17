@@ -37,7 +37,7 @@ const EditBaia = () => {
       tipo: data.tipo,
       observacao: data.observacao,
     });
-    router.replace("/cadastro/cadastro");
+    router.push("/cadastro/cadastro");
   };
 
   return (

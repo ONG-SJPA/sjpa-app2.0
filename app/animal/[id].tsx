@@ -61,14 +61,16 @@ const AnimalPage = () => {
     return (
       <CommonLayout>
         <S.ViewLoading>
-          <ActivityIndicator animating={true} size="large" color="#FFFFFF" />
+          {/* <ActivityIndicator animating={true} size="large" color="#FFFFFF" /> */}
+          <Text style={{ fontSize: 20, color: "#FFFFFF" }}>
+            Animal não encontrado
+          </Text>
         </S.ViewLoading>
       </CommonLayout>
     );
   }
 
   const onSubmit = async () => {
-    console.log("edsasdasd");
     await deleteAnimal({
       id: animal.id,
       idBaia: animal.idBaia,

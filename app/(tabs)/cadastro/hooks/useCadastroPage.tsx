@@ -1,4 +1,3 @@
-import firebase from "@/firebase/initializer";
 import { getAllSectors } from "@/repository/setor.repository";
 import { SectorDTO } from "@/types/dto/setor/SectorDTO";
 import { useFocusEffect } from "@react-navigation/native";
@@ -16,9 +15,7 @@ export const useCadastroPage = () => {
     useCallback(() => {
       minhaFuncao();
       // Retorno opcional para cleanup quando a tela perde o foco
-      return () => {
-        console.log("Saindo da rota");
-      };
+      return;
     }, [minhaFuncao]),
   );
 

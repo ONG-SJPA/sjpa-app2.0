@@ -16,9 +16,7 @@ export const useAnimalPage = () => {
   useFocusEffect(
     useCallback(() => {
       fetchAnimal();
-      return () => {
-        console.log("Saindo da rota");
-      };
+      return;
     }, [fetchAnimal]),
   );
 

@@ -1,5 +1,9 @@
 import React, { useState, useRef } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import {
+  TouchableOpacity,
+  GestureHandlerRootView,
+} from "react-native-gesture-handler";
 import { IconButton } from "react-native-paper";
 import Popover from "react-native-popover-view";
 
@@ -14,34 +18,25 @@ const CommonMenu = ({ option1, option2 }: OwnProps) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity ref={touchableRef} onPress={() => setShowPopover(true)}>
-        <IconButton icon="menu" iconColor="#000" size={28} />
-      </TouchableOpacity>
+      <IconButton
+        icon="menu"
+        iconColor="#000"
+        size={28}
+        onPress={() => setShowPopover(true)}
+      />
 
       <Popover
         isVisible={showPopover}
-        from={touchableRef}
+        // from={touchableRef}
         onRequestClose={() => setShowPopover(false)}
         popoverStyle={styles.popover}
       >
         <View style={styles.popoverContent}>
-          <TouchableOpacity
-            onPress={() => setShowPopover(false)}
-            style={styles.menuItem}
-          >
-            <Text style={styles.menuText}>{option1}</Text>
-          </TouchableOpacity>
+          <Text style={styles.menuText}>{option1}</Text>
 
           {option2 && <View style={styles.divider} />}
 
-          {option2 && (
-            <TouchableOpacity
-              onPress={() => setShowPopover(false)}
-              style={styles.menuItem}
-            >
-              <Text style={styles.menuText}>{option2}</Text>
-            </TouchableOpacity>
-          )}
+          {option2 && <Text style={styles.menuText}>{option2}</Text>}
         </View>
       </Popover>
     </View>

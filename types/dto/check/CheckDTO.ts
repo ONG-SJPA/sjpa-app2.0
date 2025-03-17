@@ -1,6 +1,6 @@
-import firebase from "@/firebase/initializer";
+import { Timestamp } from "firebase/firestore";
 
 export interface CheckDTO {
   id: string;
-  check: firebase.firestore.Timestamp;
+  check: Timestamp;
 }

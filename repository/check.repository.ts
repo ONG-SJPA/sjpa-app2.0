@@ -1,12 +1,19 @@
-import firebase from "@/firebase/initializer";
+import { db } from "@/firebase/initializer";
 import { CheckDTO } from "@/types/dto/check/CheckDTO";
+import {
+  collection,
+  query,
+  orderBy,
+  limit,
+  getDocs,
+  addDoc,
+  Timestamp,
+} from "firebase/firestore";
 
 export async function getChecks(): Promise<CheckDTO[]> {
-  const checks = await firebase
-    .firestore()
-    .collection("checks")
-    .orderBy("check", "desc")
-    .get();
+  const checksCollection = collection(db, "checks");
+  const checksQuery = query(checksCollection, orderBy("check", "desc"));
+  const checks = await getDocs(checksQuery);
 
   return checks.docs.map((doc) => {
     return {
@@ -17,12 +24,17 @@ export async function getChecks(): Promise<CheckDTO[]> {
 }
 
 export async function getLastCheck(): Promise<CheckDTO | null> {
-  const lastCheck = await firebase
-    .firestore()
-    .collection("checks")
-    .orderBy("check", "desc")
-    .limit(1)
-    .get();
+  const checksCollection = collection(db, "checks");
+  const lastCheckQuery = query(
+    checksCollection,
+    orderBy("check", "desc"),
+    limit(1),
+  );
+  const lastCheck = await getDocs(lastCheckQuery);
+
+  if (lastCheck.empty) {
+    return null;
+  }
 
   return {
     id: lastCheck.docs[0].id,
@@ -31,6 +43,6 @@ export async function getLastCheck(): Promise<CheckDTO | null> {
 }
 
 export async function createCheck(date: Date): Promise<void> {
-  const timestamp = firebase.firestore.Timestamp.fromDate(date);
-  await firebase.firestore().collection("checks").add({ check: timestamp });
+  const timestamp = Timestamp.fromDate(date);
+  await addDoc(collection(db, "checks"), { check: timestamp });
 }

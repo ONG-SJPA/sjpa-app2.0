@@ -6,6 +6,8 @@ import * as navigate from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from "@/firebase/initializer"; // Certifique-se de que o arquivo initializer.ts exporta o app do Firebase
 
 interface LoginFormInputs {
   email: string;
@@ -13,14 +15,14 @@ interface LoginFormInputs {
 }
 
 const loginSchema = yup.object().shape({
-  /// TODO: Validaçãoes para a versão final
+  // TODO: Validações para a versão final
   // email: yup.string().email("E-mail inválido").required("E-mail é obrigatório"),
   // password: yup
   //   .string()
   //   .min(6, "Obrigatório no mínimo 6 caracteres")
   //   .required("A senha é obrigatória"),
 
-  // VALIDAÇÕES PARA TESTES E DENSENVOLVIMENTO
+  // VALIDAÇÕES PARA TESTES E DESENVOLVIMENTO
   email: yup.string().required("Coloca alguma coisa porra"),
   password: yup.string().required("Precisa caraio"),
 });
@@ -30,6 +32,7 @@ const Login: React.FC = () => {
     control,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<LoginFormInputs>({
     resolver: yupResolver(loginSchema),
     defaultValues: {
@@ -38,14 +41,17 @@ const Login: React.FC = () => {
     },
   });
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isVisiblePassword, setisVisiblePassword] = useState(false);
 
   const onSubmit = (data: LoginFormInputs) => {
-    // Quando tiver validado e colcoar a logica do login aqui
-    // replace coloca a proxima tela no tipo da pilha de rotas
-    // como o login é a primeira tela ele a proxima tela será a unica tela
-    // para impedir que o user volta para o login
-    navigate.router.replace("/cadastro/cadastro");
+    const auth = getAuth(app);
+    const values = getValues();
+    signInWithEmailAndPassword(auth, values.email, values.password)
+      .then((userCredential) => {
+        navigate.router.replace("/cadastro/cadastro");
+      })
+      .catch(() => setErrorMessage("Falha ao fazer login"));
   };
 
   return (
@@ -126,6 +132,13 @@ const Login: React.FC = () => {
             >
               Login
             </Button>
+            <Text
+              style={{
+                color: "red",
+              }}
+            >
+              {errorMessage}
+            </Text>
           </View>
         </View>
       </LinearGradient>
