@@ -2,7 +2,7 @@ import React from "react";
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { router } from "expo-router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Button, HelperText, TextInput } from "react-native-paper";
+import { Button, HelperText, Text, TextInput } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import { createSector } from "@/repository/setor.repository";
 
@@ -98,7 +98,7 @@ const CreateSector = () => {
           onPress={handleSubmit(onSubmit)}
           style={styles.button}
         >
-          <span style={styles.textButton}>Enviar</span>
+          <Text style={styles.textButton}>Enviar</Text>
         </Button>
       </View>
     </CommonLayout>

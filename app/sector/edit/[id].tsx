@@ -1,7 +1,7 @@
 import CommonLayout from "@/components/Layout/CommonLayout";
 import { router } from "expo-router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { Button, HelperText, TextInput, Title } from "react-native-paper";
+import { Button, HelperText, Text, TextInput, Title } from "react-native-paper";
 import { StyleSheet, View } from "react-native";
 import React, { useCallback, useEffect } from "react";
 import { useEditSectorsPage } from "./useEditSectorsPage";
@@ -111,7 +111,7 @@ const EditSector = () => {
           onPress={handleSubmit(onSubmit)}
           style={styles.button}
         >
-          <span style={styles.textButton}>Enviar</span>
+          <Text style={styles.textButton}>Enviar</Text>
         </Button>
       </View>
     </CommonLayout>

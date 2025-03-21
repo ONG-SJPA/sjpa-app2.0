@@ -17,7 +17,9 @@ const CommonMenu = ({ option1, option2 }: OwnProps) => {
   const touchableRef = useRef<TouchableOpacity | null>(null);
 
   return (
+    
     <View style={styles.container}>
+      <GestureHandlerRootView>
       <IconButton
         icon="menu"
         iconColor="#000"
@@ -39,6 +41,7 @@ const CommonMenu = ({ option1, option2 }: OwnProps) => {
           {option2 && <Text style={styles.menuText}>{option2}</Text>}
         </View>
       </Popover>
+    </GestureHandlerRootView>
     </View>
   );
 };

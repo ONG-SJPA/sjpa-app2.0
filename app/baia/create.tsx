@@ -8,6 +8,7 @@ import {
   Button,
   HelperText,
   Provider,
+  Text,
   TextInput,
   Title,
 } from "react-native-paper";
@@ -144,7 +145,7 @@ const CreateBay: React.FC = () => {
           onPress={handleSubmit(onSubmit)}
           style={styles.button}
         >
-          <span style={styles.textButton}>Enviar</span>
+          <Text style={styles.textButton}>Enviar</Text>
         </Button>
       </View>
     </CommonLayout>

@@ -19,8 +19,10 @@ import { useCallback } from "react";
 import { View } from "react-native";
 import { getSectorByCode, getSectorById } from "@/repository/setor.repository";
 import { AnimalParams, BaiaParams, SectorParams } from "@/types/params";
+import { HeaderButtonsCOntainer } from "./styles";
 
 export { ErrorBoundary } from "expo-router";
+
 
 export const unstable_settings = {
   initialRouteName: "(tabs)",
@@ -72,50 +74,26 @@ function RootLayoutNav() {
             return {
               title: `Setor ${name}`,
               headerRight: () => (
-                <CommonMenu
-                  option1={
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Icon source="plus" size={20} />
-                      <Text
-                        style={{ fontSize: 18, marginLeft: 8 }}
-                        onPress={() => {
-                          router.push({
-                            pathname: "/baia/create",
-                            params: { sector: name, id },
-                          });
-                        }}
-                      >
-                        Cadastrar Baia
-                      </Text>
-                    </View>
-                  }
-                  option2={
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Icon source="pencil" size={18} />
-                      <Text
-                        onPress={() => {
-                          router.push({
-                            pathname: "/sector/edit/[id]",
-                            params: { id, name },
-                          });
-                        }}
-                        style={{ fontSize: 18, marginLeft: 8 }}
-                      >
-                        Editar Setor
-                      </Text>
-                    </View>
-                  }
-                />
+                <HeaderButtonsCOntainer>
+                  <IconButton
+                    icon="plus"
+                    onPress={() => {
+                      router.push({
+                        pathname: "/baia/create",
+                        params: { sector: name, id },
+                      });
+                    }}
+                  />
+                  <IconButton
+                    icon="pencil"
+                    onPress={() => {
+                      router.push({
+                        pathname: "/sector/edit/[id]",
+                        params: { id, name },
+                      });
+                    }}
+                  />
+                </HeaderButtonsCOntainer>
               ),
             };
           }}
@@ -162,47 +140,23 @@ function RootLayoutNav() {
             return {
               title: `Baia ${numeroBaia ?? id}`,
               headerRight: () => (
-                <CommonMenu
-                  option1={
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Icon source="plus" size={20} />
-                      <Text
-                        style={{ fontSize: 18, marginLeft: 8 }}
-                        onPress={() => {
-                          router.push({
-                            pathname: "/animal/create",
-                            params: { idBaia: id },
-                          });
-                        }}
-                      >
-                        Adicionar Animais
-                      </Text>
-                    </View>
-                  }
-                  option2={
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Icon source="pencil" size={18} />
-                      <Text
-                        style={{ fontSize: 18, marginLeft: 8 }}
-                        onPress={() => {
-                          router.push(`/baia/edit/${id}`);
-                        }}
-                      >
-                        Editar Baia
-                      </Text>
-                    </View>
-                  }
-                />
+                <HeaderButtonsCOntainer>
+                  <IconButton
+                    icon="plus"
+                    onPress={() => {
+                      router.push({
+                        pathname: "/animal/create",
+                        params: { idBaia: id },
+                      });
+                    }}
+                  />
+                  <IconButton
+                    icon="pencil"
+                    onPress={() => {
+                      router.push(`/baia/edit/${id}`);
+                    }}
+                  />
+                </HeaderButtonsCOntainer>
               ),
             };
           }}

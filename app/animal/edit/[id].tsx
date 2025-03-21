@@ -4,7 +4,7 @@ import { Picker } from "@react-native-picker/picker";
 import { router, useLocalSearchParams } from "expo-router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { StyleSheet, View } from "react-native";
-import { Button, HelperText, Provider, TextInput } from "react-native-paper";
+import { Button, HelperText, Provider, Text, TextInput } from "react-native-paper";
 import { createAnimal, updateAnimal } from "@/repository/animal.repository";
 import { useEditAnimalPage } from "./useEditAnimalPage";
 
@@ -191,7 +191,7 @@ const EditAnimal: React.FC = () => {
           onPress={handleSubmit(onSubmit)}
           style={styles.button}
         >
-          <span style={styles.textButton}>Enviar</span>
+          <Text style={styles.textButton}>Enviar</Text>
         </Button>
       </View>
     </CommonLayout>
