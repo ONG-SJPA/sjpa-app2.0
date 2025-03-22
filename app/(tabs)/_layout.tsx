@@ -56,6 +56,14 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="check" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="resgate/resgate"
+        options={{
+          tabBarItemStyle: { alignContent: "space-around" },
+          title: "Resgate",
+          tabBarIcon: ({ color }) => <TabBarIcon name="support" color={color} />,
+        }}
+      />
     </Tabs>
   );
 }
